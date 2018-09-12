@@ -1,0 +1,29 @@
+{
+  "name": "gplay_api_tests",
+  "version": "0.0.1",
+  "description": "Acceptance tests for GPlay API",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/gamecredz/gplay_api_tests"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/cucumber-js -r ./steps -r ./support",
+    "dev": "npm run standard | npm run testfix",
+    "standard": "standard",
+    "testfix": "standard --fix"
+  },
+  "pre-push": [
+    "dev"
+  ],
+  "author": "qa@gamecredits.com",
+  "license": "ISC",
+  "devDependencies": {
+    "cucumber": "^3.2.1",
+    "js-yaml": "^3.11.0",
+    "logplease": "^1.2.14",
+    "obj-subset": "^1.2.0",
+    "pre-push": "^0.1.1",
+    "standard": "^11.0.1",
+    "trae": "^1.4.2"
+  }
+}

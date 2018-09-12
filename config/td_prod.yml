@@ -1,0 +1,28 @@
+###
+#
+# td_prod.yml
+#
+# TD (Test Data) test data for the Production environment
+#
+###
+
+users:
+  qa_user_1:
+    email: qa.at_user_100@gamecredits.com
+    password: QAuser2017&&&
+
+  qa_user_2:
+    email: qa.at_user_200@gamecredits.com
+    password: QAuser2017&&&
+
+  qa_user_3:
+    email: qa.at_user_300@gamecredits.com
+    password: QAuser2017&&&
+
+  qa_user_4:
+    email: qa.at_user_400@gamecredits.com
+    password: QAuser2017&&&
+
+  qa_user_5:
+    email: gc.qa.cmapp@gmail.com
+    password: QAuser2017&&&

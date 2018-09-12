@@ -1,0 +1,25 @@
+###
+#
+# td_stage.yml
+#
+# TD (Test Data) test data for the Staging environment
+#
+###
+
+games:
+  game_1:
+    token: d57d4ed0-d6fb-4d32-9e41-048c8d54ba04
+    name: Super Kul Igra
+    game_slug: super_kul_igra
+
+  game_2:
+    token: 216c07d4-6092-472f-897c-b0a9c47f21f1
+    name: QA Test Game
+    game_slug: qa_test_game
+    number_of_matches: 7 #trenutno ima 3
+
+  game_3:
+    token: 56efb5f4-00cc-49ab-a004-2be173313de3
+    name: Brisi Brisi
+    qame_slug: brisi_brisi
+    number_of_matches: 0

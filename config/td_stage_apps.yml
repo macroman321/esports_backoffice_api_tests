@@ -1,0 +1,125 @@
+###
+#
+# td_stage_apps.yml
+#
+# Apps on the the Staging environment
+#
+###
+apps:
+  - id: 3
+    background_color: null
+    package_name: com.chriszhu.p1.gplay
+    name: mygame
+    version_number: '1.0'
+    file_size: 23585751
+    text_short: null
+    price: 0
+    price_in_currency: 0
+    price_in_marks: 0
+    currency_code: USD
+    thumbnail: >-
+      https://api-stage.gplay.io/system/app_versions/thumbnails/000/000/001/819ac74575dee9a7579703ab1e3c9afbde8d286b-mobile.png
+    avg_rating: '0.0'
+    organization: chris-zhu
+    is_promoted: false
+    tags: []
+  - id: 4
+    background_color: null
+    package_name: com.unity.stonegamedemo.gplay
+    name: stonegamedemo
+    version_number: '1.0'
+    file_size: 23588555
+    text_short: null
+    price: 0
+    price_in_currency: 0
+    price_in_marks: 0
+    currency_code: USD
+    thumbnail: >-
+      https://api-stage.gplay.io/system/app_versions/thumbnails/000/000/012/9f62af484123ce4fbaeb154fa750a55c86dd8c61-mobile.png
+    avg_rating: '0.0'
+    organization: StoneShi
+    is_promoted: false
+    tags: []
+  - id: 5
+    background_color: null
+    package_name: com.alekseyborodin.newunityproject103.gplay
+    name: New Unity Project 103
+    version_number: '1.0'
+    file_size: 23017098
+    text_short: null
+    price: 0
+    price_in_currency: 0
+    price_in_marks: 0
+    currency_code: USD
+    thumbnail: >-
+      https://api-stage.gplay.io/system/app_versions/thumbnails/000/000/003/caf9ea5a0e2e8b9e78d503055f91b68394462b93-mobile.png
+    avg_rating: '0.0'
+    organization: AlekseyBorordin
+    is_promoted: false
+    tags: []
+  - id: 6
+    background_color: null
+    package_name: com.datcroft.cubematrix.gplay
+    name: Pixel Wars
+    version_number: 1.1.105
+    file_size: 35213004
+    text_short: null
+    price: 0
+    price_in_currency: 0
+    price_in_marks: 0
+    currency_code: USD
+    thumbnail: >-
+      https://api-stage.gplay.io/system/app_versions/thumbnails/000/000/016/55dc645cf8a1e82a5e42bc589e1968edf8e8609e-mobile.png
+    avg_rating: '0.0'
+    organization: Iv_dc
+    is_promoted: false
+    tags: []
+  - id: 10
+    background_color: null
+    package_name: com.test1303.app2
+    name: Test stuff
+    version_number: 1.0.35
+    file_size: 414432
+    text_short: null
+    price: 100
+    price_in_currency: 100
+    price_in_marks: 100
+    currency_code: USD
+    thumbnail: /thumbnails/mobile/missing.png
+    avg_rating: '0.0'
+    organization: '12'
+    is_promoted: false
+    tags: []
+  - id: 11
+    background_color: null
+    package_name: com.test1303.app4
+    name: RogaGame
+    version_number: 1.0.35
+    file_size: 389323
+    text_short: null
+    price: 0
+    price_in_currency: 0
+    price_in_marks: 0
+    currency_code: USD
+    thumbnail: /thumbnails/mobile/missing.png
+    avg_rating: '0.0'
+    organization: Roga&Copita
+    is_promoted: false
+    tags: []
+  - id: 28
+    background_color: null
+    package_name: com.unity.iapwithudpstagingtest.gplay
+    name: UnityIAP+UDPtest
+    version_number: '2.0'
+    file_size: 23692796
+    text_short: null
+    price: 0
+    price_in_currency: 0
+    price_in_marks: 0
+    currency_code: USD
+    thumbnail: >-
+      https://api-stage.gplay.io/system/app_versions/thumbnails/000/000/042/077b1c1190fb1217d58b728887c3cf5c84a45a71-mobile.png
+    avg_rating: '0.0'
+    organization: Test_mEgJoXKcsc
+    is_promoted: false
+    tags: []

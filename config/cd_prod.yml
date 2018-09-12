@@ -1,0 +1,9 @@
+###
+#
+# cd_windows_prod.yml
+#
+# Config data for windows client connecting to the Production environment
+#
+###
+
+url: 'https://esports.gamecredits.com/api/v1'

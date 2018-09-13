@@ -50,6 +50,10 @@ class TestData {
   static getGameInfo (gameId) {
     return TestData.data.games[gameId]
   }
+
+  static getServerInfo (serverInfo) {
+    return TestData.data.gameservers[serverInfo]
+  }
 }
 
 module.exports = TestData

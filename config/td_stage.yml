@@ -23,3 +23,8 @@ games:
     name: Brisi Brisi
     qame_slug: brisi_brisi
     number_of_matches: 0
+
+gameservers:
+  gameserver1:
+    token: 216c07d4-6092-472f-897c-b0a9c47f21f1
+    number_of_ladders: 1 #trenutno ima 1

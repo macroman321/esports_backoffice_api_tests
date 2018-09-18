@@ -16,7 +16,7 @@ defineSupportCode(function ({Given, Then, When}) {
         {
           headers: {
             'Accept': '*/*',
-            'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGlnYXRld2F5QGdhbWVjcmVkaXRzLmNvbSIsInVzZXJJZCI6Ii0xIiwicm9sZSI6IlJPTEVfQURNSU4ifQ.LaAsYurpW-OcuqgfKgHMNcLBtCrduWt2l37cAbWtTUzniTib2EMkVMzeYGSOIe59QHJkcxk1QD-yTnXJ8weKNQ'
+            'Authorization': `Bearer ${this.auth}`
           }
         }
       )
@@ -40,5 +40,44 @@ defineSupportCode(function ({Given, Then, When}) {
       `Wrong number of ladders - ${this.response.data.totalElements}`)
   })
 
+  When('I create a new ladder for {string} gameserver', async function(serverInfo) {
+    this.serverInfo = TestData.getServerInfo(serverInfo)
+    this.response = undefined
+    this.error = undefined
 
+    try{
+      this.response = await request.get(
+        `${TestData.data.url}/ladder`,
+        {
+          'gameserver': this.serverInfo.token,
+          //@TODO add to body as soon as server is reachable
+
+        },
+        {
+          headers: {
+            'Accept': '*/*',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.auth}`
+          }
+        }
+      )
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
+    assert.equal(
+      this.response.status,
+      200,
+      `Incorrect status code - ${this.response.status}`
+    )
+  })
+
+  Then('I should see the new ladder created', async function () {
+
+  })
+
+  When('I request information for specific ladder on {string} gameserver', async function(serverInfo) {
+    this.serverInfo = TestData.getServerInfo(serverInfo)
+
+  })
 })

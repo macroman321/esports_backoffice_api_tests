@@ -50,7 +50,7 @@ defineSupportCode(function ({Given, Then, When}) {
         `${TestData.data.url}/ladder`,
         {
           'gameserver': this.serverInfo.token,
-          //@TODO add to body as soon as server is reachable
+          //@TODO add info to body as soon as server is reachable
 
         },
         {

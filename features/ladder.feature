@@ -19,3 +19,7 @@
   Scenario: Verify that all info is returned on a single ladder using the appropriate API
     When I request information for specific ladder on "gameserver1" gameserver
     Then I should see all information about that ladder
+
+  Scenario: Verify that a ladder is deleted using the appropriate API
+    When I send a DEL request to delete specific ladder on "gameserver1" gameserver
+    Then I should see the ladder is no longer present in the list of ladders

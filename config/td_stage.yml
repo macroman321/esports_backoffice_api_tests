@@ -29,3 +29,5 @@ gameservers:
     token: 216c07d4-6092-472f-897c-b0a9c47f21f1
     number_of_ladders: 1 #trenutno ima 1
     auth: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGlnYXRld2F5QGdhbWVjcmVkaXRzLmNvbSIsInVzZXJJZCI6Ii0xIiwicm9sZSI6IlJPTEVfQURNSU4ifQ.LaAsYurpW-OcuqgfKgHMNcLBtCrduWt2l37cAbWtTUzniTib2EMkVMzeYGSOIe59QHJkcxk1QD-yTnXJ8weKNQ
+
+ladder

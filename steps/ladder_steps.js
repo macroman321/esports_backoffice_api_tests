@@ -86,10 +86,10 @@ defineSupportCode(function ({Given, Then, When}) {
 
     try {
       this.response = await request.get(
-        `${TestData.data.url}/ladder:id`,
+        `${TestData.data.url}/ladder/{id}`,
         {
           headers: {
-            'Accept': '*/*',
+            'id': '*/*',
             'Authorization': `Bearer ${this.auth}`
           }
         }

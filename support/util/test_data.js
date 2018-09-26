@@ -50,6 +50,10 @@ class TestData {
   static getGameInfo (gameId) {
     return TestData.data.games[gameId]
   }
+
+  static getToken () {
+    return TestData.data.token
+  }
 }
 
 module.exports = TestData

@@ -24,3 +24,18 @@ exports.makeMatchId = function (idLength = 7) {
   }
   return text
 }
+
+exports.generateName = function (nameLength = 10) {
+  let text = ''
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+  for (let i = 0; i < nameLength; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  }
+  return text
+}
+
+exports.momentTimestamp = function () {
+  var d = new Date()
+  return d
+}

@@ -62,6 +62,10 @@ class TestData {
   static getLadder() {
     return TestData.data.ladder
   }
+
+  // static date.now() {
+  //
+  // }
 }
 
 module.exports = TestData

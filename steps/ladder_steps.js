@@ -31,6 +31,32 @@ defineSupportCode(function ({Given, Then, When}) {
     )
   })
 
+  When('I request the latest page of the list of ladders for all gameservers', async function () {
+    this.ladderInfo = TestData.getLadder()
+    this.response = undefined
+    this.err = undefined
+
+    try {
+      this.response = await request.get(
+        `${TestData.data.url}/ladder?page=9999`,
+        {
+          headers: {
+            'Accept': '*/*',
+            'Authorization': `Bearer ${this.ladderInfo.auth}`
+          }
+        }
+      )
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
+    assert.equal(
+      this.response.status,
+      200,
+      `Incorrect status code - ${this.response.status}`
+    )
+  })
+
   Then('I should see a list of ladders', async function () {
     console.log(this.response.data.totalElements)
 
@@ -45,14 +71,35 @@ defineSupportCode(function ({Given, Then, When}) {
     this.response = undefined
     this.err = undefined
     this.ladderInfo = TestData.getLadder()
+    this.ladderName = util.generateName()
 
     try {
       this.response = await request.post(
         `${TestData.data.url}/ladder`,
         {
-          'gameserver': this.serverInfo.token,
-          'name': 'TestLadder1234',
-          'startDate': '2018-09-25T12:21:00.492Z'
+          'name': this.ladderName,
+          'startDate': util.momentTimestamp(),
+          'endDate': util.momentTimestamp(),
+          'gameserver': {
+            'id': 38,
+            'gameSlug': '216c07d4-6092-472f-897c-b0a9c47f21f1'
+          },
+          'gameSlug': 'string',
+          'paymentConfirmed': false,
+          'prizes': [
+            {
+              'id': 9,
+              'fromPosition': 1,
+              'toPosition': 5,
+              'prize': 100
+            },
+            {
+              'id': 10,
+              'fromPosition': 6,
+              'toPosition': 10,
+              'prize': 50
+            }
+          ]
         },
         {
           headers: {
@@ -68,7 +115,7 @@ defineSupportCode(function ({Given, Then, When}) {
     }
     assert.equal(
       this.response.status,
-      200,
+      201,
       `Incorrect status code - ${this.response.status}`
     )
   })
@@ -107,6 +154,22 @@ defineSupportCode(function ({Given, Then, When}) {
       200,
       `Incorrect status code - ${this.response.status}`
     )
+  })
+
+  Then('I should see the ladder on the list of ladders', async function () {
+    console.log('Last page of ladders')
+    let found = this.response.data.content.filter((ladder) => {
+      console.log(`${ladder.name}`)
+      if (ladder.name === this.ladderName) {
+        return ladder.name
+      }
+    })
+    console.log('--------------------')
+    console.log(`${this.ladderName} - ladder we are searching for`)
+    assert.equal(
+      this.ladderName,
+      found[0].name,
+      `Ladder is not present on the list of ladders - ${this.ladderName}`)
   })
 
   Then('I should see information for that ladder', async function () {

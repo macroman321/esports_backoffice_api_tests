@@ -58,7 +58,7 @@ defineSupportCode(function ({Given, Then, When}) {
   })
 
   Then('I should see a list of ladders', async function () {
-    console.log(this.response.data.totalElements)
+    console.log(`The total number of ladders - ${this.response.data.totalElements}`)
 
     assert.equal(
       this.response.data.totalElements,
@@ -120,14 +120,14 @@ defineSupportCode(function ({Given, Then, When}) {
     )
   })
 
-  Then('I should see the new ladder created', async function () {
-    console.log(this.response.data.totalElements)
-
-    assert.equal(
-      this.response.data.totalElements,
-      this.ladderInfo.number_of_ladders,
-      `Wrong number of ladders - ${this.response.data.totalElements}`)
-  })
+  // Then('I should see the new ladder created', async function () {
+  //   console.log(this.response.data.totalElements)
+  //
+  //   assert.equal(
+  //     this.response.data.totalElements,
+  //     this.ladderInfo.number_of_ladders,
+  //     `Wrong number of ladders - ${this.response.data.totalElements}`)
+  // })
 
   When('I request information for {string} ladder', async function (ladderInfo) {
     this.ladderID = TestData.getLadderInfo(ladderInfo)
@@ -158,7 +158,8 @@ defineSupportCode(function ({Given, Then, When}) {
 
   Then('I should see the ladder on the list of ladders', async function () {
     console.log('Last page of ladders')
-    let found = this.response.data.content.filter((ladder) => {
+    console.log('--------------------')
+    var found = this.response.data.content.filter((ladder) => {
       console.log(`${ladder.name}`)
       if (ladder.name === this.ladderName) {
         return ladder.name
@@ -172,6 +173,19 @@ defineSupportCode(function ({Given, Then, When}) {
       `Ladder is not present on the list of ladders - ${this.ladderName}`)
   })
 
+  Then('I should get the ID from the created ladder', async function () {
+    console.log('Last page of ladders')
+    console.log('--------------------')
+    this.idFind = this.response.data.content.filter((ladder) => {
+      console.log(`${ladder.name} - ${ladder.id}`)
+      if (ladder.name === this.ladderName) {
+        return ladder.id
+      }
+    })
+    console.log('--------------------')
+    console.log(`ID of the newly created ladder -> ${this.idFind[0].id}`)
+  })
+
   Then('I should see information for that ladder', async function () {
     console.log(this.response.data.name)
     assert.equal(
@@ -183,14 +197,16 @@ defineSupportCode(function ({Given, Then, When}) {
   When('I send a DEL request to delete specific ladder on {string} gameserver', async function (serverInfo) {
     this.response = undefined
     this.err = undefined
+    this.ladderInfo = TestData.getLadder()
+    this.serverInfo = TestData.getServerInfo(serverInfo)
 
     try {
-      this.response = await request.get(
-        `${TestData.data.url}/ladder/{id}`,
+      this.response = await request.delete(
+        `${TestData.data.url}/ladder/${this.idFind[0].id}`,
         {
           headers: {
             'id': '*/*',
-            'Authorization': `Bearer ${this.auth}`
+            'Authorization': `Bearer ${this.ladderInfo.auth}`
           }
         }
       )
@@ -203,5 +219,22 @@ defineSupportCode(function ({Given, Then, When}) {
       200,
       `Incorrect status code - ${this.response.status}`
     )
+  })
+
+  Then('I should see the ladder is no longer present in the list of ladders', async function () {
+    console.log('Last page of ladders')
+    console.log('--------------------')
+    let missing = true
+    this.response.data.content.forEach((ladder) => {
+      console.log(`${ladder.name}`)
+      if (ladder.name === this.ladderName) {
+        missing = false
+      }
+    })
+    console.log('--------------------')
+    console.log(`${this.ladderName} - ladder we are searching for`)
+    assert(
+      missing,
+      `Ladder is present on the list of ladders - ${this.ladderName}`)
   })
 })

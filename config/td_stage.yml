@@ -31,7 +31,11 @@ gameservers:
 
 ladder:
   ladder1:
-    ladder_id: 3400
-    name: TestLadder1
+    ladder_id: 3401
+    name: bd beginner
   auth: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGlnYXRld2F5QGdhbWVjcmVkaXRzLmNvbSIsInVzZXJJZCI6Ii0xIiwicm9sZSI6IlJPTEVfQURNSU4ifQ.LaAsYurpW-OcuqgfKgHMNcLBtCrduWt2l37cAbWtTUzniTib2EMkVMzeYGSOIe59QHJkcxk1QD-yTnXJ8weKNQ
-  number_of_ladders: 3 #trenutno ima 3
+
+known_ladders:
+  - 3401
+  - 3402
+  - 3403

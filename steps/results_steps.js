@@ -17,7 +17,7 @@ defineSupportCode(function ({Given, Then, When})) {
           headers: {
             'Accept': '*/*',
             'Authorization': `Bearer ${this.auth}`
-            //@TODO edit url and add match info
+
           }
         }
       )

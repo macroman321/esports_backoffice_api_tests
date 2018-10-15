@@ -43,9 +43,15 @@ defineSupportCode(function ({Given, Then, When}) {
 
     try {
       this.response = await request.post(
-        `${TestData.data.url}/provider`,
+        `${TestData.data.url}/gameservers`,
         {
-          name: 'super_kul_provajder'
+          keywords: [
+            'pogibija'
+          ],
+          name: 'upravo si ovo napravio bote',
+          provider: {
+            'id': 1
+          }
         },
         {
           headers: {

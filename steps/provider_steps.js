@@ -45,7 +45,7 @@ defineSupportCode(function ({Given, Then, When}) {
       this.response = await request.post(
         `${TestData.data.url}/provider`,
         {
-          name: 'super_kul_provajder'
+          name: 'lazni_provajder'
         },
         {
           headers: {

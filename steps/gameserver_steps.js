@@ -46,9 +46,9 @@ defineSupportCode(function ({Given, Then, When}) {
         `${TestData.data.url}/gameservers`,
         {
           keywords: [
-            'pogibija'
+            'pogibijaa'
           ],
-          name: 'upravo si ovo napravio bote',
+          name: 'usluzivac_igara',
           provider: {
             'id': 1
           }
@@ -76,7 +76,7 @@ defineSupportCode(function ({Given, Then, When}) {
 
     try {
       this.response = await request.get(
-        `${TestData.data.url}/provider/6`,
+        `${TestData.data.url}/gameservers/78`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -106,15 +106,16 @@ defineSupportCode(function ({Given, Then, When}) {
 
     try {
       this.response = await request.put(
-        `${TestData.data.url}/provider/1`,
+        `${TestData.data.url}/gameservers/78`,
         {
-          id: '1',
-          name: 'gplay',
-          token: 'd0c51963-63e9-4619-bd57-27d1da9a5907',
-          createdDate: '2018-05-25T13:37:27.037+0000',
-          updatedDate: '2018-05-25T13:37:27.037+0000',
-          gameserverList: [],
-          active: false
+          active: true,
+          keywords: [
+            'pogibijaa'
+          ],
+          name: 'usluzivac_igara',
+          provider: {
+            id: 1
+          }
         },
         {
           headers: {
@@ -138,7 +139,7 @@ defineSupportCode(function ({Given, Then, When}) {
 
     try {
       this.response = await request.get(
-        `${TestData.data.url}/provider/1`,
+        `${TestData.data.url}/gameservers/78`,
         {
           headers: {
             'Content-Type': 'application/json',

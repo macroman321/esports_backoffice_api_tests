@@ -23,4 +23,8 @@ defineSupportCode(function ({Given, Then, When})) {
       )
     }
   })
+
+  Then('I should see appropriate results for the query', async function () {
+
+  })
 }

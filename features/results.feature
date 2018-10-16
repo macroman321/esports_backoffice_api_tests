@@ -10,3 +10,4 @@
 
     Scenario: Verify that a list of all ladders for selected gameserver is received using the appropriate API
       When I request a list of results for "match1" match on "gameserver1" gameserver
+      Then I should see appropriate results for the query

@@ -54,6 +54,18 @@ class TestData {
   static getServerInfo (serverInfo) {
     return TestData.data.gameservers[serverInfo]
   }
+
+  static getLadderInfo (ladderInfo) {
+    return TestData.data.ladder[ladderInfo]
+  }
+
+  static getLadderAuth () {
+    return TestData.data.ladder
+  }
+
+  static getKnownLadderID (ladderID) {
+    return TestData.data.known_ladders[ladderID]
+  }
 }
 
 module.exports = TestData

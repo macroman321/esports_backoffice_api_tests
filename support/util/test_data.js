@@ -59,13 +59,13 @@ class TestData {
     return TestData.data.ladder[ladderInfo]
   }
 
-  static getLadder() {
+  static getLadderAuth () {
     return TestData.data.ladder
   }
 
-  // static date.now() {
-  //
-  // }
+  static getKnownLadderID (ladderID) {
+    return TestData.data.known_ladders[ladderID]
+  }
 }
 
 module.exports = TestData

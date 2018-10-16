@@ -6,7 +6,7 @@ const util = require('../support/util/util')
 
 defineSupportCode(function ({Given, Then, When}) {
   When('I request a list of ladders for all gameservers', async function () {
-    this.ladderInfo = TestData.getLadder()
+    this.ladderAuth = TestData.getLadderAuth()
     this.response = undefined
     this.err = undefined
 
@@ -16,7 +16,7 @@ defineSupportCode(function ({Given, Then, When}) {
         {
           headers: {
             'Accept': '*/*',
-            'Authorization': `Bearer ${this.ladderInfo.auth}`
+            'Authorization': `Bearer ${this.ladderAuth.auth}`
           }
         }
       )
@@ -32,7 +32,7 @@ defineSupportCode(function ({Given, Then, When}) {
   })
 
   When('I request the latest page of the list of ladders for all gameservers', async function () {
-    this.ladderInfo = TestData.getLadder()
+    this.ladderAuth = TestData.getLadderAuth()
     this.response = undefined
     this.err = undefined
 
@@ -42,7 +42,7 @@ defineSupportCode(function ({Given, Then, When}) {
         {
           headers: {
             'Accept': '*/*',
-            'Authorization': `Bearer ${this.ladderInfo.auth}`
+            'Authorization': `Bearer ${this.ladderAuth.auth}`
           }
         }
       )
@@ -59,18 +59,42 @@ defineSupportCode(function ({Given, Then, When}) {
 
   Then('I should see a list of ladders', async function () {
     console.log(`The total number of ladders - ${this.response.data.totalElements}`)
-
+    this.ladderKnown1 = TestData.data.known_ladders.ladder1_id
+    this.ladderKnown2 = TestData.data.known_ladders.ladder2_id
+    this.ladderKnown3 = TestData.data.known_ladders.ladder3_id
+    let compareLadder = this.response.data.content.filter((ladder) => {
+      if (ladder.id === this.ladderKnown1 || ladder.id === this.ladderKnown2 || ladder.id === this.ladderKnown3) {
+        console.log(`${ladder.id}`)
+        return ladder.id
+      }
+    })
+    console.log(`${compareLadder[0].id}, ${compareLadder[1].id} and ${compareLadder[2].id} are the ladders we are searching for`)
+    assert(
+      this.response.data.totalElements > 3,
+      `There are fewer than 3 ladders on the list of ladders!`
+    )
     assert.equal(
-      this.response.data.totalElements,
-      this.ladderInfo.number_of_ladders,
-      `Wrong number of ladders - ${this.response.data.totalElements}`)
+      this.ladderKnown1,
+      compareLadder[0].id,
+      `Ladder - ${this.ladderKnown1} is missing`
+    )
+    assert.equal(
+      this.ladderKnown2,
+      compareLadder[1].id,
+      `Ladder - ${this.ladderKnown2} is missing`
+    )
+    assert.equal(
+      this.ladderKnown3,
+      compareLadder[2].id,
+      `Ladder - ${this.ladderKnown3} is missing`
+    )
   })
 
   When('I send POST request for new ladder for {string} gameserver', async function (serverInfo) {
     this.serverInfo = TestData.getServerInfo(serverInfo)
     this.response = undefined
     this.err = undefined
-    this.ladderInfo = TestData.getLadder()
+    this.ladderAuth = TestData.getLadderAuth()
     this.ladderName = util.generateName()
 
     try {
@@ -105,7 +129,7 @@ defineSupportCode(function ({Given, Then, When}) {
           headers: {
             'Accept': '*/*',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.ladderInfo.auth}`
+            'Authorization': `Bearer ${this.ladderAuth.auth}`
           }
         }
       )
@@ -120,18 +144,9 @@ defineSupportCode(function ({Given, Then, When}) {
     )
   })
 
-  // Then('I should see the new ladder created', async function () {
-  //   console.log(this.response.data.totalElements)
-  //
-  //   assert.equal(
-  //     this.response.data.totalElements,
-  //     this.ladderInfo.number_of_ladders,
-  //     `Wrong number of ladders - ${this.response.data.totalElements}`)
-  // })
-
   When('I request information for {string} ladder', async function (ladderInfo) {
     this.ladderID = TestData.getLadderInfo(ladderInfo)
-    this.ladderInfo = TestData.getLadder()
+    this.ladderAuth = TestData.getLadderAuth()
     this.response = undefined
     this.err = undefined
 
@@ -141,7 +156,7 @@ defineSupportCode(function ({Given, Then, When}) {
         {
           headers: {
             'Accept': '*/*',
-            'Authorization': `Bearer ${this.ladderInfo.auth}`
+            'Authorization': `Bearer ${this.ladderAuth.auth}`
           }
         }
       )
@@ -197,7 +212,7 @@ defineSupportCode(function ({Given, Then, When}) {
   When('I send a DEL request to delete specific ladder on {string} gameserver', async function (serverInfo) {
     this.response = undefined
     this.err = undefined
-    this.ladderInfo = TestData.getLadder()
+    this.ladderAuth = TestData.getLadderAuth()
     this.serverInfo = TestData.getServerInfo(serverInfo)
 
     try {
@@ -206,7 +221,7 @@ defineSupportCode(function ({Given, Then, When}) {
         {
           headers: {
             'id': '*/*',
-            'Authorization': `Bearer ${this.ladderInfo.auth}`
+            'Authorization': `Bearer ${this.ladderAuth.auth}`
           }
         }
       )

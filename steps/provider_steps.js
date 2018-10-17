@@ -87,11 +87,6 @@ defineSupportCode(function ({Given, Then, When}) {
       this.response.status,
       200,
       `Incorrect status code - ${this.response.status}`)
-
-    // assert.equal(
-    //   this.response.data.matchId,
-    //   this.matchId,
-    //   `Incorrect match ID - ${this.response.data.matchId}`)
   })
 
   When('I update a provider', async function () {

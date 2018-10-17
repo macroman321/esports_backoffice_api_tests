@@ -14,13 +14,3 @@ exports.emailTimestamp = function (email) {
   // out: daca+180330163020@mail.com
   return 'qa.at_user_100@gamecredits.com'
 }
-
-exports.makeMatchId = function (idLength = 7) {
-  let text = ''
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
-  for (let i = 0; i < idLength; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length))
-  }
-  return text
-}

@@ -39,3 +39,13 @@ known_ladders:
   ladder1_id: 3401
   ladder2_id: 3402
   ladder3_id: 3403
+
+results_info:
+  game_slug: colorfrenzy
+  page: 0
+  size: 10
+
+known_matches:
+  match1_id: 48f6690fd053771afc1060f133d1632a
+  match2_id: 4d5d4bc841bc08800c09a553cf94f76e
+  match3_id: 7796f136c79d8d1012d8be56057c7490

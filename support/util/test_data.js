@@ -66,6 +66,10 @@ class TestData {
   static getKnownLadderID (ladderID) {
     return TestData.data.known_ladders[ladderID]
   }
+
+  static getResultsInfo () {
+    return TestData.data.results_info
+  }
 }
 
 module.exports = TestData

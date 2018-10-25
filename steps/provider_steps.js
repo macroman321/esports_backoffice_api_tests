@@ -1,5 +1,5 @@
 const TestData = require('../support/util/test_data')
-const request = require('trae')
+const request = require('axios')
 const assert = require('assert')
 const defineSupportCode = require('cucumber').defineSupportCode
 
@@ -7,19 +7,16 @@ defineSupportCode(function ({Given, Then, When}) {
   When('I request a list of all providers', async function () {
     this.response = undefined
     this.token = TestData.getToken()
-
     try {
-      this.response = await request.get(
-        `${TestData.data.url}/provider`,
+      this.response = await request.get(`${TestData.data.url}/provider`,
         {
           headers: {
             'Authorization': this.token
           }
-        }
-      )
+        })
       console.log(this.response.data.length)
     } catch (err) {
-      console.log('Error', err)
+      console.error('Error', err)
       throw err
     }
     assert.equal(

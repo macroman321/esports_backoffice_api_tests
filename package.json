@@ -25,5 +25,8 @@
     "pre-push": "^0.1.1",
     "standard": "^11.0.1",
     "trae": "^1.4.2"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
   }
 }

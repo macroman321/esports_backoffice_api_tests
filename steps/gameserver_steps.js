@@ -1,5 +1,5 @@
 const TestData = require('../support/util/test_data')
-const request = require('trae')
+const request = require('axios')
 const assert = require('assert')
 const defineSupportCode = require('cucumber').defineSupportCode
 

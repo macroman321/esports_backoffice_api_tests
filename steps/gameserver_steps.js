@@ -5,23 +5,8 @@ const When = require('cucumber')
 const Then = require('cucumber')
 
 When('I request a list of all gameservers', async function () {
-  this.response = undefined
-  this.token = TestData.getToken()
+  this.response = gameserver_api.getGameservers()
 
-  try {
-    this.response = await request.get(
-      `${TestData.data.url}/gameservers`,
-      {
-        headers: {
-          'Authorization': this.token
-        }
-      }
-    )
-    this.logger(this.response.data.length)
-  } catch (err) {
-    this.logger('Error', err)
-    throw err
-  }
   assert.equal(
     this.response.status,
     200,
@@ -40,6 +25,7 @@ Then('I should get the list of gameservers', async function () {
 When('I create a new gameserver', async function () {
   this.token = TestData.getToken()
   this.response = undefined
+  this.name = util.createUniqueGameserverName()
 
   try {
     this.response = await request.post(
@@ -48,7 +34,7 @@ When('I create a new gameserver', async function () {
         keywords: [
           'pogibijaa'
         ],
-        name: 'usluzivac_igara',
+        name: this.name,
         provider: {
           'id': 1
         }
@@ -74,6 +60,7 @@ Then('I should see that the previously created gameserver exists', async functio
   this.response = undefined
   this.token = TestData.getToken()
 
+  // request list of all gameservers
   try {
     this.response = await request.get(
       `${TestData.data.url}/gameservers/10`,
@@ -93,6 +80,8 @@ Then('I should see that the previously created gameserver exists', async functio
     this.response.status,
     200,
     `Incorrect status code - ${this.response.status}`)
+
+  // search the list for the name 'this.name' starting from the end of the list
 })
 
 When('I update a gameserver', async function () {

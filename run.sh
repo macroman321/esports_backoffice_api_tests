@@ -7,6 +7,7 @@
 # Usage examples:
 # $ ./run.sh stage
 # $ ./run.sh prod
+# $ ./run.sh stage features/<name>.feature
 ./node_modules/.bin/cucumber-js \
     --world-parameters "{\"environment\": \"$1\"}" \
     ${@:2}

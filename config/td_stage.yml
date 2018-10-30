@@ -6,6 +6,9 @@
 #
 ###
 
+token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGlnYXRld2F5QGdhbWVjcmVkaXRzLmNvbSIsInVzZXJJZCI6Ii0xIiwicm9sZSI6IlJPTEVfQURNSU4ifQ.LaAsYurpW-OcuqgfKgHMNcLBtCrduWt2l37cAbWtTUzniTib2EMkVMzeYGSOIe59QHJkcxk1QD-yTnXJ8weKNQ
+number_of_gameservers: 9
+
 games:
   game_1:
     token: d57d4ed0-d6fb-4d32-9e41-048c8d54ba04

@@ -8,15 +8,15 @@
 
 Feature: Gameserver
 
-  @all_env
+  @semi_auto
   Scenario: List of all gameservers
     When I request a list of all gameservers
     Then I should get the list of gameservers
 
-  @stage_env
-  Scenario: Create gameserver
-    When I create a new gameserver
-    Then I should see that the previously created gameserver exists
+#  @stage_env
+#  Scenario: Create gameserver
+#    When I create a new gameserver
+#    Then I should see that the previously created gameserver exists
 
   @all_env
   Scenario: Update gameserver

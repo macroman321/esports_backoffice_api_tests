@@ -47,8 +47,8 @@ class TestData {
     }
   }
 
-  static getGameInfo (gameId) {
-    return TestData.data.games[gameId]
+  static getToken () {
+    return TestData.data.token
   }
 
   static getServerInfo (serverInfo) {

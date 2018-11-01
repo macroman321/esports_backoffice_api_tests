@@ -18,6 +18,7 @@
   "author": "qa@gamecredits.com",
   "license": "ISC",
   "devDependencies": {
+    "axios": "^0.18.0",
     "cucumber": "^3.2.1",
     "js-yaml": "^3.11.0",
     "logplease": "^1.2.14",
@@ -28,5 +29,6 @@
   },
   "dependencies": {
     "npm": "^6.4.1"
+    "standard": "^11.0.1"
   }
 }

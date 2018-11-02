@@ -1,10 +1,10 @@
 {
-  "name": "gplay_api_tests",
+  "name": "esports_backoffice_api_tests",
   "version": "0.0.1",
-  "description": "Acceptance tests for GPlay API",
+  "description": "Acceptance tests for eSports Backoffice API",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/gamecredz/gplay_api_tests"
+    "url": "https://bitbucket.org/gamesoftlab/esports_backoffice_api_tests"
   },
   "scripts": {
     "test": "./node_modules/.bin/cucumber-js -r ./steps -r ./support",

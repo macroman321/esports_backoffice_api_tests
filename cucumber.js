@@ -8,5 +8,8 @@ const common = "-r ./steps -r ./support --tags 'not @wip' --tags 'not @manual' -
 module.exports = {
   'default': common + ' --format summary',
   dry: common + ' --dry-run',
-  progress: common + ' --format progress'
+  progress: common + ' --format progress',
+  dev: common + " --tags '@dev_env or @all_env'",
+  stage: common + " --tags '@stage_env or @all_env'",
+  prod: common + " --tags '@prod_env or @all_env'"
 }

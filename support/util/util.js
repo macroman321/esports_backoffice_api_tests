@@ -11,8 +11,9 @@ exports.sleep = function (milliseconds) {
 
 exports.emailTimestamp = function (email) {
   // in: daca@mail.com
-  // out: daca+180330163020@mail.com
-  return 'qa.at_user_100@gamecredits.com'
+  // out: daca+timestamp@mail.com
+  const parts = email.split('@')
+  return `${parts[0]}+${createTimestamp()}@${parts[1]}`
 }
 
 exports.makeMatchId = function (idLength = 7) {
@@ -35,7 +36,14 @@ exports.generateName = function (nameLength = 10) {
   return text
 }
 
-exports.momentTimestamp = function () {
+/*
+Create timestamp as number of milliseconds since 1970/01/01
+*/
+exports.createTimestamp = function () {
   var d = new Date()
-  return d
+  return d.getTime()
+}
+
+exports.createUniqueGameserverName = function () {
+  return 'qags' + createTimestamp()
 }

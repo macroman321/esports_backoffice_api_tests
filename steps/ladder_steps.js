@@ -102,8 +102,8 @@ defineSupportCode(function ({Given, Then, When}) {
         `${TestData.data.url}/ladder`,
         {
           'name': this.ladderName,
-          'startDate': util.momentTimestamp(),
-          'endDate': util.momentTimestamp(),
+          'startDate': util.createTimestamp(),
+          'endDate': util.createTimestamp(),
           'gameserver': {
             'id': 38,
             'gameSlug': '216c07d4-6092-472f-897c-b0a9c47f21f1'

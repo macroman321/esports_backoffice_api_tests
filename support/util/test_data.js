@@ -2,7 +2,6 @@ const path = require('path')
 const yaml = require('js-yaml')
 const fs = require('fs')
 const _ = require('lodash')
-const isSubset = require('obj-subset')
 
 const configPath = path.join(
   path.dirname(
@@ -47,7 +46,7 @@ class TestData {
     }
   }
 
-  static getToken () {
+  getToken () {
     return TestData.data.token
   }
 

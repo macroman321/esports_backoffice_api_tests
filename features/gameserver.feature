@@ -24,7 +24,62 @@ Feature: Gameserver
     When I create a new gameserver
     Then I should see that the previously created gameserver exists
 
+  @stage_env
+  Scenario: Name is required when creating gameserver
+
+  @stage_env
+  Scenario: Package name is required when creating gameserver
+
+  @stage_env
+  Scenario: Provider is required when creating gameserver
+
   @all_env
-  Scenario: Update gameserver
+  Scenario: Update gameserver status
+    When I update a gameserver
+    Then I should see that the status of the gameserver has changed
+
+  @all_env
+  Scenario Outline: Update gameserver
+    When I update a gameserver <property>
+    Then I should see that the gameserver <property> has changed
+    
+    Examples:
+    |property|
+    |status  |
+    |name    |
+    |keywords|
+
+  @all_env
+  Scenario: Update gameserver name
+    When I update a gameserver
+    Then I should see that the status of the gameserver has changed
+
+  @all_env
+  Scenario: Update gameserver keywords
+    When I update a gameserver
+    Then I should see that the status of the gameserver has changed
+
+  @all_env
+  Scenario: Update gameserver package name
+    When I update a gameserver
+    Then I should see that the status of the gameserver has changed
+
+  @manual @all_env
+  Scenario: Update gameserver cover image
+    When I update a gameserver
+    Then I should see that the status of the gameserver has changed
+
+  @manual @all_env
+  Scenario: Update gameserver card image
+    When I update a gameserver
+    Then I should see that the status of the gameserver has changed
+
+  @all_env
+  Scenario: Verify it's not possible to update inactive gameserver
+    When I update a gameserver
+    Then I should see that the status of the gameserver has changed
+
+  @all_env
+  Scenario: Verify that gameserver name cannot be empty
     When I update a gameserver
     Then I should see that the status of the gameserver has changed

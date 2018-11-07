@@ -26,6 +26,8 @@ Feature: Gameserver
 
   @stage_env
   Scenario: Name is required when creating gameserver
+    When I create a new gameserver without providing name
+    Then I should see that gameserver creation fails with reason 'DUPLICATE_KEY'
 
   @stage_env
   Scenario: Package name is required when creating gameserver

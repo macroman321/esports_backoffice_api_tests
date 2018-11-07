@@ -1,12 +1,16 @@
-const axios = require('axios')
+const request = require('axios')
+const assert = require('assert')
 
 exports.createGameserver = async function (
   name,
   provider,
-  keywords
+  keywords,
+  expectedStatus
 ) {
+  let response;
+
   try {
-    const response = await request.post(
+    response = await request.post(
       `${global.testData.url}/gameservers`,
       {
         name: name,
@@ -24,12 +28,12 @@ exports.createGameserver = async function (
     )
   } catch (err) {
     global.logger.error(err)
-    throw err
+    response = err.response
   }
 
   assert.equal(
+    expectedStatus,
     response.status,
-    201,
     `Incorrect status code - ${response.status}`)
 
   return response
@@ -37,7 +41,7 @@ exports.createGameserver = async function (
 
 exports.getGameservers = async function () {
   try {
-    const response = await axios({
+    const response = await request({
       method: 'get',
       url: `${global.testData.url}/gameservers`,
       headers: {
@@ -53,7 +57,7 @@ exports.getGameservers = async function () {
 
 exports.getGameserver = async function (id) {
   try {
-    const response = await axios({
+    const response = await request({
       method: 'get',
       url: `${global.testData.url}/gameservers/${id}`,
       headers: {

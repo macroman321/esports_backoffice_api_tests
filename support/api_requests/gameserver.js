@@ -7,7 +7,7 @@ exports.createGameserver = async function (
   keywords,
   expectedStatus
 ) {
-  let response;
+  let response
 
   try {
     response = await request.post(

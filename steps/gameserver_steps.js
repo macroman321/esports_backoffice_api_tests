@@ -18,7 +18,7 @@ Then('I should get the list of gameservers', async function () {
 
   assert.equal(
     this.response.data.length,
-    TestData.data.number_of_gameservers,
+    global.testData.number_of_gameservers,
     `Wrong number of gameservers - ${this.response.data.length}`)
 })
 

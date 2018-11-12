@@ -11,4 +11,18 @@ number_of_gameservers: 10
 test_gameserver: 7
 test_provider: 1
 
-    ####Neka izmena da develop bude ispred mastera
+providers:
+  provider1:
+    id: 3
+    name: QABugTestingProvider
+    gameservers:
+      - id: 7
+
+gameservers:
+  gameserver1:
+    id: 7
+    name: qabugtestinggameserver
+    package_name: null
+    provider_id: 3
+    keywords:
+      - pogibijaa

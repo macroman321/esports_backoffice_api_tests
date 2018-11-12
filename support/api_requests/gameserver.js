@@ -9,16 +9,15 @@ exports.createGameserver = async function (
 ) {
   let response
 
+  body = {}
+  if (name !== undefined) { body['name'] = name }
+  if (provider !== undefined) { body['provider'] = {'id': provider} }
+  if (keywords !== undefined) { body['keywords'] = keywords }
+
   try {
     response = await request.post(
       `${global.testData.url}/gameservers`,
-      {
-        name: name,
-        keywords: keywords,
-        provider: {
-          'id': provider
-        }
-      },
+      body,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -27,7 +26,47 @@ exports.createGameserver = async function (
       }
     )
   } catch (err) {
-    global.logger.error(err)
+    global.logger.debug(err.response.data)
+    response = err.response
+  }
+
+  assert.equal(
+    expectedStatus,
+    response.status,
+    `Incorrect status code - ${response.status}`)
+
+  return response
+}
+
+exports.updateGameserver = async function (
+  id,
+  name,
+  active,
+  provider,
+  keywords,
+  expectedStatus
+) {
+  let response
+
+  body = {}
+  if (name !== undefined) { body['name'] = name }
+  if (active !== undefined) { body['active'] = active }
+  if (provider !== undefined) { body['provider'] = {'id': provider} }
+  if (keywords !== undefined) { body['keywords'] = keywords }
+
+  try {
+    response = await request.put(
+      `${global.testData.url}/gameservers/${id}`,
+      body,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + global.testData.token
+        }
+      }
+    )
+  } catch (err) {
+    global.logger.error(err.response.data)
     response = err.response
   }
 
@@ -50,7 +89,7 @@ exports.getGameservers = async function () {
     })
     return response
   } catch (err) {
-    global.logger.error(err)
+    global.logger.debug(err)
     return err.response
   }
 }
@@ -64,9 +103,10 @@ exports.getGameserver = async function (id) {
         'Authorization': 'Bearer ' + global.testData.token
       }
     })
+
     return response
   } catch (err) {
-    global.logger.error(err)
+    global.logger.debug(err)
     return err.response
   }
 }

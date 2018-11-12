@@ -27,61 +27,54 @@ Feature: Gameserver
   @stage_env
   Scenario: Name is required when creating gameserver
     When I create a new gameserver without providing name
-    Then I should see that gameserver creation fails with reason 'DUPLICATE_KEY'
-
-  @stage_env
-  Scenario: Package name is required when creating gameserver
+    Then I should see that gameserver creation fails with reason 'game server name can not be null'
 
   @stage_env
   Scenario: Provider is required when creating gameserver
+    When I create a new gameserver without providing provider
+    Then I should see that gameserver creation fails with reason 'must not be null'
+
+  @stage_env
+  Scenario: Keywords are required when creating gameserver
+    When I create a new gameserver without providing keywords
+    Then I should see that gameserver creation fails with reason 'game server keywords can not be null'
 
   @all_env
   Scenario: Update gameserver status
-    When I update a gameserver
+    When I update a gameserver status
     Then I should see that the status of the gameserver has changed
-
-  @all_env
-  Scenario Outline: Update gameserver
-    When I update a gameserver <property>
-    Then I should see that the gameserver <property> has changed
-    
-    Examples:
-    |property|
-    |status  |
-    |name    |
-    |keywords|
 
   @all_env
   Scenario: Update gameserver name
-    When I update a gameserver
-    Then I should see that the status of the gameserver has changed
+    When I update a gameserver name
+    Then I should see that the name of the gameserver has changed
 
-  @all_env
+  @wip @all_env
   Scenario: Update gameserver keywords
-    When I update a gameserver
-    Then I should see that the status of the gameserver has changed
 
-  @all_env
+  @wip @all_env
   Scenario: Update gameserver package name
-    When I update a gameserver
-    Then I should see that the status of the gameserver has changed
 
-  @manual @all_env
+  @wip @manual @all_env
   Scenario: Update gameserver cover image
-    When I update a gameserver
-    Then I should see that the status of the gameserver has changed
 
   @manual @all_env
   Scenario: Update gameserver card image
-    When I update a gameserver
-    Then I should see that the status of the gameserver has changed
 
-  @all_env
-  Scenario: Verify it's not possible to update inactive gameserver
-    When I update a gameserver
-    Then I should see that the status of the gameserver has changed
+  @wip @all_env
+  Scenario: It's not possible to update inactive gameserver
 
-  @all_env
-  Scenario: Verify that gameserver name cannot be empty
-    When I update a gameserver
-    Then I should see that the status of the gameserver has changed
+  @wip @all_env
+  Scenario: Gameserver update name cannot be empty
+
+  @wip @all_env
+  Scenario: Name is required when updating gameserver
+
+  @wip @all_env
+  Scenario: Status is required when updating gameserver
+
+  @wip @all_env
+  Scenario: Provider is required when updating gameserver
+
+  @wip @all_env
+  Scenario: Keywords are required when updating gameserver

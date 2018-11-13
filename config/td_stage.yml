@@ -33,14 +33,13 @@ gameservers:
     token: 216c07d4-6092-472f-897c-b0a9c47f21f1
     id:
 
-ladder:
+ladders:
   ladder1:
-    ladder_id: 3401
-    name: bd beginner
-  auth: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGlnYXRld2F5QGdhbWVjcmVkaXRzLmNvbSIsInVzZXJJZCI6Ii0xIiwicm9sZSI6IlJPTEVfQURNSU4ifQ.LaAsYurpW-OcuqgfKgHMNcLBtCrduWt2l37cAbWtTUzniTib2EMkVMzeYGSOIe59QHJkcxk1QD-yTnXJ8weKNQ
-
-known_ladders:
-  ladder1_id: 3401
-  ladder2_id: 3402
-  ladder3_id: 3403
-
+    id: 1
+    name: test123
+  ladder2:
+    id: 2
+    name: g2
+  ladder3:
+    id: 3
+    name: t1

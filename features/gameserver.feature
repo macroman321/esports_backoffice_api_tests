@@ -24,7 +24,57 @@ Feature: Gameserver
     When I create a new gameserver
     Then I should see that the previously created gameserver exists
 
+  @stage_env
+  Scenario: Name is required when creating gameserver
+    When I create a new gameserver without providing name
+    Then I should see that gameserver creation fails with reason 'game server name can not be null'
+
+  @stage_env
+  Scenario: Provider is required when creating gameserver
+    When I create a new gameserver without providing provider
+    Then I should see that gameserver creation fails with reason 'must not be null'
+
+  @stage_env
+  Scenario: Keywords are required when creating gameserver
+    When I create a new gameserver without providing keywords
+    Then I should see that gameserver creation fails with reason 'game server keywords can not be null'
+
   @all_env
-  Scenario: Update gameserver
-    When I update a gameserver
+  Scenario: Update gameserver status
+    When I update a gameserver status
     Then I should see that the status of the gameserver has changed
+
+  @all_env
+  Scenario: Update gameserver name
+    When I update a gameserver name
+    Then I should see that the name of the gameserver has changed
+
+  @wip @all_env
+  Scenario: Update gameserver keywords
+
+  @wip @all_env
+  Scenario: Update gameserver package name
+
+  @wip @manual @all_env
+  Scenario: Update gameserver cover image
+
+  @manual @all_env
+  Scenario: Update gameserver card image
+
+  @wip @all_env
+  Scenario: It's not possible to update inactive gameserver
+
+  @wip @all_env
+  Scenario: Gameserver update name cannot be empty
+
+  @wip @all_env
+  Scenario: Name is required when updating gameserver
+
+  @wip @all_env
+  Scenario: Status is required when updating gameserver
+
+  @wip @all_env
+  Scenario: Provider is required when updating gameserver
+
+  @wip @all_env
+  Scenario: Keywords are required when updating gameserver

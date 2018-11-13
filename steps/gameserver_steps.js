@@ -1,9 +1,11 @@
-const TestData = require('../support/util/test_data')
 const request = require('axios')
 const assert = require('assert')
-const {When, Then} = require('cucumber')
+const { Given, When, Then, setDefaultTimeout } = require('cucumber')
 const gameserver = require('../support/api_requests/gameserver')
 const util = require('../support/util/util')
+const {StatusCode} = require('../support/util/http_codes')
+
+setDefaultTimeout(30 * 1000)
 
 When('I request a list of all gameservers', async function () {
   this.response = await gameserver.getGameservers()
@@ -18,46 +20,48 @@ Then('I should get the list of gameservers', async function () {
 
   assert.equal(
     this.response.data.length,
-    TestData.data.number_of_gameservers,
+    global.testData.number_of_gameservers,
     `Wrong number of gameservers - ${this.response.data.length}`)
 })
 
 When('I create a new gameserver', async function () {
-  this.response = undefined
   this.name = util.createUniqueGameserverName()
-  console.log('napravljeno ime', this.name)
+  await gameserver.createGameserver(
+    this.name,
+    global.testData.test_provider,
+    ['pogibijaa'],
+    StatusCode.CREATED
+  )
+})
 
-  try {
-    this.response = await request.post(
-      `${global.testData.url}/gameservers`,
-      {
-        keywords: [
-          'pogibijaa'
-        ],
-        name: this.name,
-        provider: {
-          'id': 1
-        }
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + global.testData.token
-        }
-      }
-    )
-  } catch (err) {
-    global.logger.error(err)
-    throw err
-  }
-  assert.equal(
-    this.response.status,
-    201,
-    `Incorrect status code - ${this.response.status}`)
+When('I create a new gameserver without providing name', async function () {
+  this.response = await gameserver.createGameserver(
+    undefined,
+    global.testData.test_provider,
+    ['pogibijaa'],
+    StatusCode.BAD_REQUEST
+  )
+})
+
+When('I create a new gameserver without providing provider', async function () {
+  this.response = await gameserver.createGameserver(
+    util.createUniqueGameserverName(),
+    undefined,
+    ['pogibijaa'],
+    StatusCode.BAD_REQUEST
+  )
+})
+
+When('I create a new gameserver without providing keywords', async function () {
+  this.response = await gameserver.createGameserver(
+    util.createUniqueGameserverName(),
+    global.testData.test_provider,
+    undefined,
+    StatusCode.BAD_REQUEST
+  )
 })
 
 Then('I should see that the previously created gameserver exists', async function () {
-  this.response = undefined
   this.response = await gameserver.getGameservers()
 
   const found = this.response.data.filter((gameserver) => {
@@ -65,56 +69,84 @@ Then('I should see that the previously created gameserver exists', async functio
       return gameserver.name
     }
   })
+
+  assert.notStrictEqual(
+    found.length,
+    0,
+    `Gameserver is not present on the list of gameservers - ${this.name}`)
+
   assert.equal(
     this.name,
     found[0].name,
-    `Gameserver is not present on the list of ladders - ${this.name}`)
+    `Gameserver is not present on the list of gameservers - ${this.name}`)
 
   assert.equal(
     this.response.status,
-    200,
+    StatusCode.OK,
     `Incorrect status code - ${this.response.status}`)
 })
 
-When('I update a gameserver', async function () {
-  this.response = undefined
-  const gameserverResponse = await gameserver.getGameserver(global.testData.test_gameserver)
-  this.currentStatus = gameserverResponse.data.active
-
-  try {
-    this.response = await request.put(
-      `${global.testData.url}/gameservers/${global.testData.test_gameserver}`,
-      {
-        active: !this.currentStatus,
-        keywords: [
-          'pogibijaa'
-        ],
-        name: 'qabugtestinggameserver',
-        provider: {
-          id: 3
-        }
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + global.testData.token
-        }
-      }
-    )
-  } catch (err) {
-    this.logger(err)
-    throw err
-  }
-
+Then('I should see that gameserver creation fails with reason {string}', async function (errorMessage) {
   assert.equal(
-    this.response.status,
-    200,
-    `Incorrect status code - ${this.response.status}`)
+    this.response.data.sub_errors[0].message,
+    errorMessage,
+    `Incorrect error message - ${this.response.data.error_code}`)
+})
+
+When('I update a gameserver status', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.currentStatus = getResponse.data.active
+
+  this.response = undefined
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    getResponse.data.name,
+    !this.currentStatus,
+    getResponse.data.provider.id,
+    getResponse.data.keywords,
+    StatusCode.OK
+  )
 })
 
 Then('I should see that the status of the gameserver has changed', async function () {
-  const newGameserverResponse = await gameserver.getGameserver(global.testData.test_gameserver)
+  const newGameserverResponse = await gameserver.getGameserver(this.gameserver.id)
   const newStatus = newGameserverResponse.data.active
 
   assert.equal(newStatus, !this.currentStatus, 'Gameserver status update failed!')
+})
+
+When('I update a gameserver name', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.response = undefined
+  this.newName = 'New QA Gameserver'
+
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    this.newName,
+    getResponse.data.active,
+    getResponse.data.provider.id,
+    getResponse.data.keywords,
+    StatusCode.OK
+  )
+})
+
+Then('I should see that the name of the gameserver has changed', async function () {
+  let response = await gameserver.getGameserver(this.gameserver.id)
+  const newName = response.data.name
+
+  assert.equal(newName, this.newName, 'Gameserver name update failed!')
+
+  // restore original name
+  response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    this.gameserver.name,
+    response.data.active,
+    response.data.provider.id,
+    response.data.keywords,
+    StatusCode.OK
+  )
+
+  assert.equal(response.data.name, this.gameserver.name, 'Gameserver name restore failed!')
 })

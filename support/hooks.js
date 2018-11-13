@@ -5,8 +5,8 @@ const TestData = require('./util/test_data')
 let testData
 
 global.logger = Logger.create(
-  'cmatest',
-  { filename: 'cmatest.log', appendFile: true }
+  'ebatest',
+  { filename: 'ebatest.log', appendFile: true }
 )
 Logger.setLogLevel(Logger.LogLevels.INFO)
 

@@ -1,8 +1,8 @@
 const defineSupportCode = require('cucumber').defineSupportCode
 const assert = require('assert')
-const request = require('trae')
 const TestData = require('../support/util/test_data')
 const util = require('../support/util/util')
+const request = require('axios')
 
 defineSupportCode(function ({Given, Then, When}) {
   When('I request a list of results for {string} match on {string} gameserver', async function (match, serverInfo) {
@@ -30,6 +30,35 @@ defineSupportCode(function ({Given, Then, When}) {
     assert.equal(
       this.response.status,
       200,
+      `Incorrect status code - ${this.response.status}`
+    )
+  })
+
+  When('I request a list of results for {string} match on {string} gameserver without the appropriate gameslug', async function (match, serverInfo) {
+    this.results = TestData.getResultsInfo()
+    this.serverInfo = TestData.getServerInfo(serverInfo)
+    this.getAuth = TestData.getLadderAuth()
+    this.response = undefined
+    this.error = undefined
+
+    try {
+      this.response = await request.get(
+        `${TestData.data.url}/results/matches?page=${this.results.page}&size=${this.results.size}`,
+        {
+          headers: {
+            'Accept': '*/*',
+            'Authorization': `Bearer ${this.getAuth.auth}`
+
+          }
+        }
+      )
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
+    assert.equal(
+      this.response.status,
+      400,
       `Incorrect status code - ${this.response.status}`
     )
   })

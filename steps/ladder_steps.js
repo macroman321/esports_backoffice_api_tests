@@ -1,22 +1,22 @@
 const defineSupportCode = require('cucumber').defineSupportCode
 const assert = require('assert')
-const request = require('trae')
-// const global.testData = require('../support/util/test_data')
+const request = require('axios')
+const testData = require('../support/util/test_data')
 const util = require('../support/util/util')
 
 defineSupportCode(function ({Given, Then, When}) {
   When('I request a list of ladders for all gameservers', async function () {
-    this.ladderAuth = global.testData.getLadderAuth()
+    this.authToken = testData.getAuthToken()
     this.response = undefined
     this.err = undefined
 
     try {
       this.response = await request.get(
-        `${global.testData.data.url}/ladder`,
+        `${testData.data.url}/ladder`,
         {
           headers: {
             'Accept': '*/*',
-            'Authorization': `Bearer ${this.ladderAuth.auth}`
+            'Authorization': `Bearer ${this.authToken}`
           }
         }
       )
@@ -32,13 +32,12 @@ defineSupportCode(function ({Given, Then, When}) {
   })
 
   When('I request a list of ladders for all gameservers with wrong authorization token', async function () {
-    this.ladderAuth = global.testData.getLadderAuth()
     this.response = undefined
     this.err = undefined
 
     try {
       this.response = await request.get(
-        `${global.testData.data.url}/ladder`,
+        `${testData.data.url}/ladder`,
         {
           headers: {
             'Accept': '*/*',
@@ -47,8 +46,8 @@ defineSupportCode(function ({Given, Then, When}) {
         }
       )
     } catch (err) {
-      global.logger.error(err)
-      throw err
+      global.logger.debug(err)
+      this.response = err.response
     }
     assert.equal(
       this.response.status,
@@ -58,17 +57,17 @@ defineSupportCode(function ({Given, Then, When}) {
   })
 
   When('I request the latest page of the list of ladders for all gameservers', async function () {
-    this.ladderAuth = global.testData.getLadderAuth()
+    this.authToken = testData.getAuthToken()
     this.response = undefined
     this.err = undefined
 
     try {
       this.response = await request.get(
-        `${global.testData.data.url}/ladder?page=9999`,
+        `${testData.data.url}/ladder?page=9999`,
         {
           headers: {
             'Accept': '*/*',
-            'Authorization': `Bearer ${this.ladderAuth.auth}`
+            'Authorization': `Bearer ${this.authToken}`
           }
         }
       )
@@ -85,13 +84,13 @@ defineSupportCode(function ({Given, Then, When}) {
 
   Then('I should see a list of ladders', async function () {
     global.logger.info(`The total number of ladders - ${this.response.data.totalElements}`)
-    this.ladderKnown1 = global.testData.data.known_ladders.ladder1_id
-    this.ladderKnown2 = global.testData.data.known_ladders.ladder2_id
-    this.ladderKnown3 = global.testData.data.known_ladders.ladder3_id
-    let compareLadder = this.response.data.content.filter((ladder) => {
-      if (ladder.id === this.ladderKnown1 || ladder.id === this.ladderKnown2 || ladder.id === this.ladderKnown3) {
-        console.log(`${ladder.id}`)
-        return ladder.id
+    this.ladderKnown1 = testData.data.ladders.ladder2.id
+    this.ladderKnown2 = testData.data.ladders.ladder3.id
+    this.ladderKnown3 = testData.data.ladders.ladder4.id
+    let compareLadder = this.response.data.content.filter((ladders) => {
+      if (ladders.id === this.ladderKnown1 || ladders.id === this.ladderKnown2 || ladders.id === this.ladderKnown3) {
+        console.log(`${ladders.id}`)
+        return ladders.id
       }
     })
     global.logger.info(`${compareLadder[0].id}, ${compareLadder[1].id} and ${compareLadder[2].id} are the ladders we are searching for`)
@@ -106,22 +105,22 @@ defineSupportCode(function ({Given, Then, When}) {
   // })
 
   When('I create new ladder for {string} gameserver', async function (serverInfo) {
-    this.serverInfo = global.testData.getServerInfo(serverInfo)
+    this.serverInfo = testData.getServerInfo(serverInfo)
     this.response = undefined
     this.err = undefined
-    this.ladderAuth = global.testData.getLadderAuth()
+    this.authToken = testData.getAuthToken()
     this.ladderName = util.generateName()
 
     try {
       this.response = await request.post(
-        `${global.testData.data.url}/ladder`,
+        `${testData.data.url}/ladder`,
         {
           'name': this.ladderName,
           'startDate': util.createTimestamp(),
           'endDate': util.createTimestamp(),
           'gameserver': {
-            'id': 38,
-            'gameSlug': '216c07d4-6092-472f-897c-b0a9c47f21f1'
+            'id': 7,
+            'gameSlug': 'f0641a58-8e82-487f-b7ca-375d6132746d'
           },
           'gameSlug': 'string',
           'paymentConfirmed': false,
@@ -144,7 +143,7 @@ defineSupportCode(function ({Given, Then, When}) {
           headers: {
             'Accept': '*/*',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.ladderAuth.auth}`
+            'Authorization': `Bearer ${this.authToken}`
           }
         }
       )
@@ -160,15 +159,15 @@ defineSupportCode(function ({Given, Then, When}) {
   })
 
   When('I try to create a new ladder for {string} gameserver without choosing a gameserver', async function (serverInfo) {
-    this.serverInfo = global.testData.getServerInfo(serverInfo)
+    this.serverInfo = testData.getServerInfo(serverInfo)
     this.response = undefined
     this.err = undefined
-    this.ladderAuth = global.testData.getLadderAuth()
+    this.authToken = testData.getAuthToken()
     this.ladderName = util.generateName()
 
     try {
       this.response = await request.post(
-        `${global.testData.data.url}/ladder`,
+        `${testData.data.url}/ladder`,
         {
           'name': this.ladderName,
           'startDate': util.createTimestamp(),
@@ -198,7 +197,7 @@ defineSupportCode(function ({Given, Then, When}) {
           headers: {
             'Accept': '*/*',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.ladderAuth.auth}`
+            'Authorization': `Bearer ${this.authToken}`
           }
         }
       )
@@ -214,21 +213,21 @@ defineSupportCode(function ({Given, Then, When}) {
   })
 
   When('I try to create a new ladder for {string} gameserver without entering a name for the ladder', async function (serverInfo) {
-    this.serverInfo = global.testData.getServerInfo(serverInfo)
+    this.serverInfo = testData.getServerInfo(serverInfo)
     this.response = undefined
     this.err = undefined
-    this.ladderAuth = global.testData.getLadderAuth()
-
+    this.authToken = testData.getAuthToken()
+    console.log(`${util.createTimestamp()}`)
     try {
       this.response = await request.post(
-        `${global.testData.data.url}/ladder`,
+        `${testData.data.url}/ladder`,
         {
-          'name': '',
+          'name': 'bugtest1',
           'startDate': util.createTimestamp(),
           'endDate': util.createTimestamp(),
           'gameserver': {
-            'id': 38,
-            'gameSlug': '216c07d4-6092-472f-897c-b0a9c47f21f1'
+            'id': 7,
+            'gameSlug': 'nekirandomslug1'
           },
           'gameSlug': 'string',
           'paymentConfirmed': false,
@@ -251,7 +250,7 @@ defineSupportCode(function ({Given, Then, When}) {
           headers: {
             'Accept': '*/*',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.ladderAuth.auth}`
+            'Authorization': `Bearer ${this.authToken}`
           }
         }
       )
@@ -266,23 +265,23 @@ defineSupportCode(function ({Given, Then, When}) {
     )
   })
 
-  When('I try to create a new ladder for "gameserver2" gameserver without entering a start date', async function (serverInfo) {
-    this.serverInfo = global.testData.getServerInfo(serverInfo)
+  When('I try to create a new ladder for {string} gameserver without entering a start date', async function (serverInfo) {
+    this.serverInfo = testData.getServerInfo(serverInfo)
     this.response = undefined
     this.err = undefined
-    this.ladderAuth = global.testData.getLadderAuth()
+    this.authToken = testData.getAuthToken()
     this.ladderName = util.generateName()
 
     try {
       this.response = await request.post(
-        `${global.testData.data.url}/ladder`,
+        `${testData.data.url}/ladder`,
         {
           'name': this.ladderName,
-          'startDate': '',
+          'startDate': util.createTimestamp(),
           'endDate': util.createTimestamp(),
           'gameserver': {
-            'id': 38,
-            'gameSlug': '216c07d4-6092-472f-897c-b0a9c47f21f1'
+            'id': 7,
+            'gameSlug': 'f0641a58-8e82-487f-b7ca-375d6132746d'
           },
           'gameSlug': 'string',
           'paymentConfirmed': false,
@@ -305,7 +304,7 @@ defineSupportCode(function ({Given, Then, When}) {
           headers: {
             'Accept': '*/*',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.ladderAuth.auth}`
+            'Authorization': `Bearer ${this.authToken}`
           }
         }
       )
@@ -320,24 +319,24 @@ defineSupportCode(function ({Given, Then, When}) {
     )
   })
 
-  Then('I shoul see the ladder is not created', async function () {
+  Then('I should see the ladder is not created', async function () {
     global.logger.info('Required fields must be filled')
     global.logger.info(this.response.status)
   })
 
   When('I request information for {string} ladder', async function (ladderInfo) {
-    this.ladderID = global.testData.getLadderInfo(ladderInfo)
-    this.ladderAuth = global.testData.getLadderAuth()
+    this.ladderID = testData.getLadderInfo(ladderInfo)
+    this.authToken = testData.getAuthToken()
     this.response = undefined
     this.err = undefined
 
     try {
       this.response = await request.get(
-        `${global.testData.data.url}/ladder/${this.ladderID.ladder_id}`,
+        `${testData.data.url}/ladder/${this.ladderID.id}`,
         {
           headers: {
             'Accept': '*/*',
-            'Authorization': `Bearer ${this.ladderAuth.auth}`
+            'Authorization': `Bearer ${this.authToken}`
           }
         }
       )
@@ -389,16 +388,16 @@ defineSupportCode(function ({Given, Then, When}) {
   When('I delete a specific ladder on {string} gameserver', async function (serverInfo) {
     this.response = undefined
     this.err = undefined
-    this.ladderAuth = global.testData.getLadderAuth()
-    this.serverInfo = global.testData.getServerInfo(serverInfo)
+    this.authToken = testData.getAuthToken()
+    this.serverInfo = testData.getServerInfo(serverInfo)
 
     try {
       this.response = await request.delete(
-        `${global.testData.data.url}/ladder/${this.idFind[0].id}`,
+        `${testData.data.url}/ladder/${this.idFind[0].id}`,
         {
           headers: {
             'id': '*/*',
-            'Authorization': `Bearer ${this.ladderAuth.auth}`
+            'Authorization': `Bearer ${this.authToken}`
           }
         }
       )

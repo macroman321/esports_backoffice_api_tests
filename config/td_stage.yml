@@ -44,14 +44,20 @@ gameservers:
 
 ladders:
   ladder1:
+    id: 248
+    name: test_ladder_1
+
+  ladder2:
     id: 1
     name: test123
-  ladder2:
+
+  ladder3:
     id: 2
     name: g2
-  ladder3:
-    id: 3
-    name: t1
+
+  ladder4:
+    id: 5
+    name: g3
 
 providers:
   provider1:

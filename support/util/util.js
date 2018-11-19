@@ -13,7 +13,7 @@ exports.emailTimestamp = function (email) {
   // in: daca@mail.com
   // out: daca+timestamp@mail.com
   const parts = email.split('@')
-  return `${parts[0]}+${createTimestamp()}@${parts[1]}`
+  return `${parts[0]}+${global.createTimestamp()}@${parts[1]}`
 }
 
 exports.makeMatchId = function (idLength = 7) {
@@ -41,9 +41,9 @@ Create timestamp as number of milliseconds since 1970/01/01
 */
 exports.createTimestamp = function () {
   var d = new Date()
-  return d.getTime()
+  return d
 }
 
 exports.createUniqueGameserverName = function () {
-  return 'qags' + createTimestamp()
+  return 'qags' + global.createTimestamp()
 }

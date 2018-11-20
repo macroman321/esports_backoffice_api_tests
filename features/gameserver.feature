@@ -51,30 +51,50 @@ Feature: Gameserver
 
   @wip @all_env
   Scenario: Update gameserver keywords
+    When I update the gameserver keyword
+    Then I should see that the gameserver keyword has changed
 
   @wip @all_env
   Scenario: Update gameserver package name
+    When I update the gameserver package name
+    Then I should see that the gameserver package name has changed
 
   @wip @manual @all_env
   Scenario: Update gameserver cover image
+    When I update the gameserver cover image
+    Then I should see that the gameserver cover image has changed
 
   @manual @all_env
   Scenario: Update gameserver card image
+    When I update the gameserver card image
+    Then I should see that the gameserver card image has changed
 
   @wip @all_env
   Scenario: It's not possible to update inactive gameserver
+    When I attempt to update an inactive gameserver
+    Then I should see that the update fails with the resaon ""
 
-  @wip @all_env
+  @wip @all_env #moze prodje update :/
   Scenario: Gameserver update name cannot be empty
+    When I attempt to update the gameserver name with no parameters
+    Then I should see that the gameserver name update fails with the reason "gameserver name must not be null"
 
   @wip @all_env
   Scenario: Name is required when updating gameserver
+    When I attempt to update a gameserver without providing a name
+    Then I should see that the gameserver update fails with the reason "game server name can not be null"
 
   @wip @all_env
   Scenario: Status is required when updating gameserver
+    When I attempt to update the gameserver without providing the status
+    Then I should see that gameserver update fails with reason "Internal Server Error"
 
   @wip @all_env
   Scenario: Provider is required when updating gameserver
+    When I attempt to update the gameserver without providing the provider
+    Then I should see that gameserver update fails with reason "Bad Request"
 
   @wip @all_env
   Scenario: Keywords are required when updating gameserver
+    When I attempt to update the gameserver without providing the keyword
+    Then I should see that gameserver update fails with reason "game server keywords can not be null"

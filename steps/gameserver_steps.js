@@ -1,6 +1,5 @@
-const request = require('axios')
 const assert = require('assert')
-const { Given, When, Then, setDefaultTimeout } = require('cucumber')
+const {When, Then, setDefaultTimeout} = require('cucumber')
 const gameserver = require('../support/api_requests/gameserver')
 const util = require('../support/util/util')
 const {StatusCode} = require('../support/util/http_codes')
@@ -103,10 +102,23 @@ When('I update a gameserver status', async function () {
     this.gameserver.id,
     getResponse.data.name,
     !this.currentStatus,
+    getResponse.data.package_name,
     getResponse.data.provider.id,
     getResponse.data.keywords,
     StatusCode.OK
   )
+
+  if (this.currentStatus === true) {
+    this.response = await gameserver.updateGameserver(
+      this.gameserver.id,
+      getResponse.data.name,
+      true,
+      getResponse.data.package_name,
+      getResponse.data.provider.id,
+      getResponse.data.keywords,
+      StatusCode.OK
+    )
+  }
 })
 
 Then('I should see that the status of the gameserver has changed', async function () {
@@ -126,6 +138,7 @@ When('I update a gameserver name', async function () {
     this.gameserver.id,
     this.newName,
     getResponse.data.active,
+    getResponse.data.package_name,
     getResponse.data.provider.id,
     getResponse.data.keywords,
     StatusCode.OK
@@ -143,10 +156,205 @@ Then('I should see that the name of the gameserver has changed', async function 
     this.gameserver.id,
     this.gameserver.name,
     response.data.active,
+    response.data.package_name,
     response.data.provider.id,
     response.data.keywords,
     StatusCode.OK
   )
 
   assert.equal(response.data.name, this.gameserver.name, 'Gameserver name restore failed!')
+})
+
+When('I update the gameserver keyword', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.response = undefined
+  this.newKeyword = 'New QA Keyword'
+
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    getResponse.data.name,
+    getResponse.data.active,
+    getResponse.data.package_name,
+    getResponse.data.provider.id,
+    this.newKeyword,
+    StatusCode.OK
+  )
+})
+
+Then('I should see that the gameserver keyword has changed', async function () {
+  let response = await gameserver.getGameserver(this.gameserver.id)
+  const newKeyword = response.data.keywords
+
+  assert.equal(newKeyword, this.newKeyword, 'Gameserver keyword update failed!')
+
+  // restore original keyword
+  response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    this.gameserver.name,
+    response.data.active,
+    response.data.package_name,
+    response.data.provider.id,
+    response.data.keywords,
+    StatusCode.OK
+  )
+
+  assert.equal(response.data.keywords, this.gameserver.keyword, 'Gameserver keyword restore failed!')
+})
+
+When('I update the gameserver package name', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.response = undefined
+  this.newPackageName = 'New QA Package name'
+
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    getResponse.data.name,
+    getResponse.data.active,
+    this.newPackageName,
+    getResponse.data.provider.id,
+    getResponse.data.keywords,
+    StatusCode.OK
+  )
+})
+
+Then('I should see that the gameserver package name has changed', async function () {
+  let response = await gameserver.getGameserver(this.gameserver.id)
+  const newPackageName = response.data.package_name
+
+  assert.equal(newPackageName, this.newPackageName, 'Gameserver package name update failed!')
+
+  // restore original package name
+  response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    this.gameserver.name,
+    response.data.active,
+    response.data.package_name,
+    response.data.provider.id,
+    response.data.keywords,
+    StatusCode.OK
+  )
+
+  assert.equal(response.data.package_name, this.gameserver.package_name, 'Gameserver package name restore failed!')
+})
+
+When('I attempt to update the gameserver name with no parameters', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.response = undefined
+  this.newName = ''
+
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    this.newName,
+    getResponse.data.active,
+    getResponse.data.package_name,
+    getResponse.data.provider.id,
+    getResponse.data.keywords,
+    StatusCode.BAD_REQUEST
+  )
+})
+
+Then('I should see that the gameserver name update fails with the reason {string}', async function (errorMessage) {
+  assert.equal(
+    this.response.data.sub_errors[0].message,
+    errorMessage,
+    `Incorrect error message - ${this.response.data.error_code}`)
+})
+
+When('I attempt to update a gameserver without providing a name', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.response = undefined
+  this.newName = undefined
+
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    this.newName,
+    getResponse.data.active,
+    getResponse.data.package_name,
+    getResponse.data.provider.id,
+    getResponse.data.keywords,
+    StatusCode.BAD_REQUEST
+  )
+})
+
+Then('I should see that the gameserver update fails with the reason {string}', async function (errorMessage) {
+  assert.equal(
+    this.response.data.sub_errors[0].message,
+    errorMessage,
+    `Incorrect error message - ${this.response.data.error_code}`)
+})
+
+When('I attempt to update the gameserver without providing the status', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.response = undefined
+  this.newStatus = undefined
+
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    getResponse.data.name,
+    this.newStatus,
+    getResponse.data.package_name,
+    getResponse.data.provider.id,
+    getResponse.data.keywords,
+    StatusCode.INTERNAL_SERVER_ERROR
+  )
+})
+
+Then('I should see that gameserver status update fails with reason {string}', async function (errorMessage) {
+  assert.equal(
+    this.response.data.error,
+    errorMessage,
+    `Incorrect error message - ${this.response.data.error_code}`)
+})
+
+When('I attempt to update the gameserver without providing the provider', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.response = undefined
+  this.newPackageName = undefined
+
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    getResponse.data.name,
+    getResponse.data.active,
+    this.newPackageName,
+    getResponse.data.provider.id,
+    getResponse.data.keywords,
+    StatusCode.BAD_REQUEST
+  )
+})
+
+Then('I should see that gameserver update fails with reason {string}', async function (errorMessage) {
+  assert.equal(
+    this.response.data.error,
+    errorMessage,
+    `Incorrect error message - ${this.response.data.error_code}`)
+})
+
+When('I attempt to update the gameserver without providing the keyword', async function () {
+  this.gameserver = global.testData.gameservers.gameserver1
+  const getResponse = await gameserver.getGameserver(this.gameserver.id)
+  this.response = undefined
+  this.newKeyword = undefined
+
+  this.response = await gameserver.updateGameserver(
+    this.gameserver.id,
+    getResponse.data.name,
+    getResponse.data.active,
+    getResponse.data.package_name,
+    getResponse.data.provider.id,
+    this.newKeyword,
+    StatusCode.BAD_REQUEST
+  )
+})
+
+Then('I should see that gameserver update fails with reason {string}', async function (errorMessage) {
+  assert.equal(
+    this.response.data.sub_errors[0].message,
+    errorMessage,
+    `Incorrect error message - ${this.response.data.error_code}`)
 })

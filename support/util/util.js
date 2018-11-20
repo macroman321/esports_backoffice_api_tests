@@ -15,3 +15,7 @@ exports.emailTimestamp = function (email) {
   return 'qa.at_user_100@gamecredits.com'
 }
 
+exports.createUniqueGameserverName = function () {
+  const d = new Date()
+  return 'qags' + d.getTime()
+}

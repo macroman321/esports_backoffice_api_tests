@@ -1,10 +1,10 @@
 {
-  "name": "gplay_api_tests",
+  "name": "esports_backoffice_api_tests",
   "version": "0.0.1",
-  "description": "Acceptance tests for GPlay API",
+  "description": "Acceptance tests for eSports Backoffice API",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/gamecredz/gplay_api_tests"
+    "url": "https://bitbucket.org/gamesoftlab/esports_backoffice_api_tests"
   },
   "scripts": {
     "test": "./node_modules/.bin/cucumber-js -r ./steps -r ./support",
@@ -18,15 +18,12 @@
   "author": "qa@gamecredits.com",
   "license": "ISC",
   "devDependencies": {
+    "axios": "^0.18.0",
     "cucumber": "^3.2.1",
     "js-yaml": "^3.11.0",
     "logplease": "^1.2.14",
     "obj-subset": "^1.2.0",
     "pre-push": "^0.1.1",
-    "standard": "^11.0.1",
-    "trae": "^1.4.2"
-  },
-  "dependencies": {
-    "axios": "^0.18.0"
+    "standard": "^11.0.1"
   }
 }

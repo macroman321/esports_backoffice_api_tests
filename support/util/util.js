@@ -14,3 +14,8 @@ exports.emailTimestamp = function (email) {
   // out: daca+180330163020@mail.com
   return 'qa.at_user_100@gamecredits.com'
 }
+
+exports.createUniqueGameserverName = function () {
+  const d = new Date()
+  return 'qags' + d.getTime()
+}

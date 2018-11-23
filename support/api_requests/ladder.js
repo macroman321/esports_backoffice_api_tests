@@ -4,6 +4,7 @@ const assert = require('assert')
 exports.createLadder = async function (
   name,
   startDate,
+  endDate,
   gameserver,
   expectedStatus
 ) {
@@ -12,6 +13,7 @@ exports.createLadder = async function (
   const body = {}
   if (name !== undefined) { body['name'] = name }
   if (startDate !== undefined) { body['startDate'] = startDate }
+  if (endDate !== undefined) { body['endDate'] = endDate }
   if (gameserver !== undefined) { body['gameserver'] = gameserver }
 
   try {
@@ -32,8 +34,8 @@ exports.createLadder = async function (
   }
 
   assert.equal(
-    expectedStatus,
     response.status,
+    expectedStatus,
     `Incorrect status code - ${response.status}`)
 
   return response
@@ -45,7 +47,7 @@ exports.getLadders = async function () {
       method: 'get',
       url: `${global.testData.url}/ladder`,
       headers: {
-        'Authorization': 'Bearer ' + global.testData.token
+        'Authorization': `Bearer ${global.testData.token}`
       }
     })
     return response
@@ -70,11 +72,35 @@ exports.getLadder = async function (id) {
   }
 }
 
-// exports.deleteLadder = async function () {
+exports.deleteLadder = async function (id) {
+  let response
+  try {
+    response = await request.delete(
+      `${global.testData.url}/ladder/${id}`,
+      {
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer' + global.testData.token
+        }
+      })
+    return response
+  } catch (err) {
+    global.logger.debug(err)
+    throw err
+  }
+}
+
+// exports.searchForDeletedLadder = async function (id) {
+//   let response
 //   try {
-//     const response = await request({
-//       method:'delete',
-//       url: `${global.testData.url}/ladder/${id}`
-//     })
+//     response = await request.delete(
+//       `${global.testData.url}/ladder/${id}`,
+//       {
+//         headers: {
+//           'Accept'
+//         }
+//       }
+//     )
 //   }
 // }

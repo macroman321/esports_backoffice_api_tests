@@ -38,12 +38,12 @@
     When I try to create a new ladder for "gameserver1" gameserver without entering a start date
     Then I should see the ladder is not created
 
-  @stage_env
+  @manual
   Scenario: Verify that all info is returned on a single ladder using the appropriate API
     When I request information for "ladder1" ladder
     Then I should see information for that ladder
 
-  @stage_env
+  @manual
   Scenario: Verify that a ladder is deleted using the appropriate API
     When I create new ladder for "gameserver1" gameserver
     And I request the latest page of the list of ladders for all gameservers
@@ -53,3 +53,6 @@
     Then I should see the ladder is no longer present in the list of ladders
 
 
+  @stage_env
+  Scenario: Lets see if this function deletes a ladder
+    When I use this function to delete ladder with "279" id

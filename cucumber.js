@@ -4,7 +4,7 @@ cucumber.js
 The cucumber.js defines profiles and project variables.
 */
 
-const common = "-r ./steps -r ./support --tags 'not @wip' --tags 'not @manual' --tags 'not @semi_auto'"
+const common = "-r ./steps -r ./support --tags 'not @wip' --tags 'not @manual' --tags 'not @semi_auto' --tags 'not @bug_ESP-798'"
 module.exports = {
   'default': common + ' --format summary',
   dry: common + ' --dry-run',

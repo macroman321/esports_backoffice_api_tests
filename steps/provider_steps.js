@@ -1,8 +1,7 @@
 const TestData = require('../support/util/test_data')
 const request = require('axios')
 const assert = require('assert')
-const When = require('cucumber')
-const Then = require('cucumber')
+const { When, Then } = require('cucumber')
 
 When('I request a list of all providers', async function () {
   this.response = undefined

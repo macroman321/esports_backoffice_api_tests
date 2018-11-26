@@ -8,24 +8,30 @@ const {StatusCode} = require('../support/util/http_codes')
 
 defineSupportCode(function ({Given, Then, When}) {
   When('I request a list of ladders for all gameservers', async function () {
-    this.authToken = testData.getAuthToken()
-    this.response = undefined
-    this.err = undefined
-
-    try {
-      this.response = await request.get(
-        `${testData.data.url}/ladder`,
-        {
-          headers: {
-            'Accept': '*/*',
-            'Authorization': `Bearer ${this.authToken}`
-          }
-        }
-      )
-    } catch (err) {
-      global.logger.error(err)
-      throw err
-    }
+    // this.authToken = testData.getAuthToken()
+    // this.response = undefined
+    // this.err = undefined
+    //
+    // try {
+    //   this.response = await request.get(
+    //     `${testData.data.url}/ladder`,
+    //     {
+    //       headers: {
+    //         'Accept': '*/*',
+    //         'Authorization': `Bearer ${this.authToken}`
+    //       }
+    //     }
+    //   )
+    // } catch (err) {
+    //   global.logger.error(err)
+    //   throw err
+    // }
+    // assert.equal(
+    //   this.response.status,
+    //   200,
+    //   `Incorrect status code - ${this.response.status}`
+    // )
+    this.response = await ladder.getLadders()
     assert.equal(
       this.response.status,
       200,

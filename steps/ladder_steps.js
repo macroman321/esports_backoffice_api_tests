@@ -8,34 +8,29 @@ const {StatusCode} = require('../support/util/http_codes')
 
 defineSupportCode(function ({Given, Then, When}) {
   When('I request a list of ladders for all gameservers', async function () {
-    // this.authToken = testData.getAuthToken()
-    // this.response = undefined
-    // this.err = undefined
-    //
-    // try {
-    //   this.response = await request.get(
-    //     `${testData.data.url}/ladder`,
-    //     {
-    //       headers: {
-    //         'Accept': '*/*',
-    //         'Authorization': `Bearer ${this.authToken}`
-    //       }
-    //     }
-    //   )
-    // } catch (err) {
-    //   global.logger.error(err)
-    //   throw err
-    // }
-    // assert.equal(
-    //   this.response.status,
-    //   200,
-    //   `Incorrect status code - ${this.response.status}`
-    // )
-    this.response = await ladder.getLadders()
+    this.authToken = testData.getAuthToken()
+    this.response = undefined
+    this.err = undefined
+
+    try {
+      this.response = await request.get(
+        `${testData.data.url}/ladder`,
+        {
+          headers: {
+            'Accept': '*/*',
+            'Authorization': `Bearer ${this.authToken}`
+          }
+        }
+      )
+    } catch (err) {
+      global.logger.error(err)
+      throw err
+    }
     assert.equal(
       this.response.status,
       200,
-      `Incorrect status code - ${this.response.status}`)
+      `Incorrect status code - ${this.response.status}`
+    )
   })
 
   When('I request a list of ladders for all gameservers with wrong authorization token', async function () {
@@ -108,68 +103,57 @@ defineSupportCode(function ({Given, Then, When}) {
   })
 
   When('I create new ladder for {string} gameserver', async function (serverInfo) {
-    // this.serverInfo = testData.getServerInfo(serverInfo)
-    // this.response = undefined
-    // this.err = undefined
-    // this.authToken = testData.getAuthToken()
-    // this.ladderName = util.generateName()
-    //
-    // try {
-    //   this.response = await request.post(
-    //     `${testData.data.url}/ladder`,
-    //     {
-    //       'name': this.ladderName,
-    //       'startDate': util.createTimestamp(),
-    //       'endDate': util.createTimestamp(),
-    //       'gameserver': {
-    //         'id': 7,
-    //         'gameSlug': 'f0641a58-8e82-487f-b7ca-375d6132746d'
-    //       },
-    //       'gameSlug': 'string',
-    //       'paymentConfirmed': false,
-    //       'prizes': [
-    //         {
-    //           'id': 9,
-    //           'fromPosition': 1,
-    //           'toPosition': 5,
-    //           'prize': 100
-    //         },
-    //         {
-    //           'id': 10,
-    //           'fromPosition': 6,
-    //           'toPosition': 10,
-    //           'prize': 50
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       headers: {
-    //         'Accept': '*/*',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${this.authToken}`
-    //       }
-    //     }
-    //   )
-    // } catch (err) {
-    //   global.logger.error(err)
-    //   throw err
-    // }
-    // assert.equal(
-    //   this.response.status,
-    //   201,
-    //   `Incorrect status code - ${this.response.status}`
-    // )
-    this.name = util.generateName()
-    this.startDate = util.createTimestamp()
-    this.endDate = util.createTimestamp()
-    await ladder.createLadder(
-      this.name,
-      this.startDate,
-      this.endDate,
-      global.testData.gameservers.gameserver1.id,
-      StatusCode.CREATED
-    )
+    this.serverInfo = testData.getServerInfo(serverInfo)
+    this.response = undefined
+    this.err = undefined
+    this.authToken = testData.getAuthToken()
+    this.ladderName = util.generateName()
 
+    try {
+      this.response = await request.post(
+        `${testData.data.url}/ladder`,
+        {
+          'name': this.ladderName,
+          'startDate': util.createTimestamp(),
+          'endDate': util.createTimestamp(),
+          'gameserver': {
+            'id': 7,
+            'gameSlug': 'f0641a58-8e82-487f-b7ca-375d6132746d'
+          },
+          'gameSlug': 'string',
+          'paymentConfirmed': false,
+          'prizes': [
+            {
+              'id': 9,
+              'fromPosition': 1,
+              'toPosition': 5,
+              'prize': 100
+            },
+            {
+              'id': 10,
+              'fromPosition': 6,
+              'toPosition': 10,
+              'prize': 50
+            }
+          ]
+        },
+        {
+          headers: {
+            'Accept': '*/*',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.authToken}`
+          }
+        }
+      )
+    } catch (err) {
+      global.logger.error(err)
+      throw err
+    }
+    assert.equal(
+      this.response.status,
+      201,
+      `Incorrect status code - ${this.response.status}`
+    )
   })
 
   When('I try to create a new ladder for {string} gameserver without choosing a gameserver', async function (serverInfo) {

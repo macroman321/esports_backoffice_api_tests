@@ -76,11 +76,9 @@ exports.deleteLadder = async function (id) {
   let response
   try {
     response = await request.delete(
-      `${global.testData.url}/ladder/${id}`,
+      `${global.testData.url}/#/ladder/380`,
       {
         headers: {
-          'Accept': '*/*',
-          'Content-Type': 'application/json',
           'Authorization': 'Bearer' + global.testData.token
         }
       })

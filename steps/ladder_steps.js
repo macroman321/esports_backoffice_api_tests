@@ -433,5 +433,10 @@ defineSupportCode(function ({Given, Then, When}) {
 
   When('I use this function to delete ladder with {string} id', async function (ladderId) {
     this.response = await ladder.deleteLadder(ladderId)
+    assert.equal(
+      this.response.status,
+      200,
+      `Incorrect status code - ${this.response.status}`
+    )
   })
 })

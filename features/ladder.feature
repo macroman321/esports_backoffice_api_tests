@@ -7,7 +7,7 @@
 #
   Feature: Ladder
 
-  @stage_env
+  @manual
   Scenario: Verify that a list of all ladders for all gameservers is received using the appropriate API
     When I request a list of ladders for all gameservers
     Then I should see a list of ladders
@@ -17,7 +17,7 @@
     When I request a list of ladders for all gameservers with invalid authorization token
     Then I should NOT see a list of ladders
 
-  @stage_env
+  @manual
   Scenario: Verify that a new ladder is created using the appropriate API
     When I create new ladder for "gameserver1" gameserver
     And I request the latest page of the list of ladders for all gameservers
@@ -52,7 +52,6 @@
     And I request the latest page of the list of ladders for all gameservers
     Then I should see the ladder is no longer present in the list of ladders
 
-
   @stage_env
-  Scenario: Lets see if this function deletes a ladder
-    When I use this function to delete ladder with "279" id
+  Scenario: Let's see if this scenario deletes a ladder
+    When I use this function to delete ladder with "380" id

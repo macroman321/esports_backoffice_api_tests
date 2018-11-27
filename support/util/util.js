@@ -19,3 +19,8 @@ exports.createUniqueGameserverName = function () {
   const d = new Date()
   return 'qags' + d.getTime()
 }
+
+exports.createUniqueProviderName = function () {
+  const d = new Date()
+  return 'qapro' + d.getTime()
+}

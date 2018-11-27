@@ -16,6 +16,8 @@ providers:
     id: 3
     name: QABugTestingProvider
     gameservers:
+      - id: 21
+      - id: 9
       - id: 7
 
 gameservers:

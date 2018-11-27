@@ -82,22 +82,30 @@ When('I update a provider status', async function () {
     !this.currentStatus,
     StatusCode.OK
   )
-
-  if (this.currentStatus === true) {
-    this.response = await provider.updateProvider(
-      this.gameserver.id,
-      getResponse.data.name,
-      true,
-      StatusCode.OK
-    )
-  }
 })
+// if (this.currentStatus === true) {
+//   this.response = await provider.updateProvider(
+//     this.provider.id,
+//     getResponse.data.name,
+//     true,
+//     StatusCode.OK
+//   )
 
 Then('I should see that the status of the provider has changed', async function () {
   const newProviderResponse = await provider.getProvider(this.provider.id)
   const newStatus = newProviderResponse.data.active
 
   assert.equal(newStatus, !this.currentStatus, 'Provider status update failed!')
+
+  // ensure that status is true after assertion
+  if (this.currentStatus === true) {
+    this.response = await provider.updateProvider(
+      this.provider.id,
+      newProviderResponse.data.name,
+      true,
+      StatusCode.OK
+    )
+  }
 })
 
 When('I update a provider name', async function () {

@@ -63,7 +63,6 @@ exports.createProvider = async function (name, expectedStatus) {
   return response
 }
 
-// ovde si stao magarče
 exports.updateProvider = async function (
   id,
   name,
@@ -75,6 +74,7 @@ exports.updateProvider = async function (
   const body = {}
   if (id !== undefined) { body['id'] = id }
   if (name !== undefined) { body['name'] = name }
+  if (active !== undefined) { body['active'] = active }
 
   try {
     response = await request.put(

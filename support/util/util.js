@@ -47,3 +47,8 @@ exports.createTimestamp = function () {
 exports.createUniqueGameserverName = function () {
   return 'qags' + global.createTimestamp()
 }
+
+exports.createUniqueProviderName = function () {
+  const d = new Date()
+  return 'qapro' + d.getTime()
+}

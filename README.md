@@ -20,3 +20,4 @@ Acceptance tests for the [eSports Backoffice API](https://esports-backoffice.gam
 * [eSports Confluence](https://gamecredits.atlassian.net/wiki/spaces/ESP/overview)
 * [eSports Backoffice API Postman collection](https://bitbucket.org/gamesoftlab/esports-backoffice/src/master/postman/ESP-Backoffice.postman_collection.json)
 * [eSports Backoffice API Postman environment](https://bitbucket.org/gamesoftlab/esports-gameserver-gateway/src/master/postman/environments/)
+* [eSports Backoffice API Swagger](https://esports-backoffice.gamecredits2.org:8443/swagger-ui.html#/)

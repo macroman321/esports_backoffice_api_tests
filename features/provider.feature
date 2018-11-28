@@ -6,12 +6,17 @@
 # NOTES:
 #
 
-Feature: Provider
+Feature: Provider 
 
-  @semi_auto
+  # same comment as for scenario 'List of all gameservers' applies here
+  @dev_env
   Scenario: List of all providers
     When I request a list of all providers
     Then I should get the list of providers
+
+  @all_env
+  Scenario: Verify that GET /provider API returns correct status
+    When I request a list of all providers
 
   @stage_env
   Scenario: Create provider

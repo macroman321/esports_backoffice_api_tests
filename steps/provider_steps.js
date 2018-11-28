@@ -1,8 +1,8 @@
 const assert = require('assert')
-const {When, Then, setDefaultTimeout} = require('cucumber')
+const { When, Then, setDefaultTimeout } = require('cucumber')
 const provider = require('../support/api_requests/provider')
 const util = require('../support/util/util')
-const {StatusCode} = require('../support/util/http_codes')
+const { StatusCode } = require('../support/util/http_codes')
 
 setDefaultTimeout(30 * 1000)
 

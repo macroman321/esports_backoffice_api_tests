@@ -19,6 +19,13 @@ Feature: Gameserver
     When I request a list of all gameservers
     Then I should get the list of gameservers
 
+  # this scenario has the same first step as the above, but only verifies  that
+  # the request was succesfull, and a response with correct status was recevied.
+  # it can be executed in any environment
+  @all_env
+  Scenario: Verify that GET /gameserver API returns correct status
+    When I request a list of all gameservers
+
   @stage_env
   Scenario: Create gameserver
     When I create a new gameserver

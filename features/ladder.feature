@@ -7,6 +7,7 @@
 #
   Feature: Ladder
 
+  # same comment as for scenario 'List of all gameservers' applies here
   @dev_env
   Scenario: Verify the list of all ladders for all gameservers
     When I request a list of ladders for all gameservers

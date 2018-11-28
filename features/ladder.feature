@@ -7,12 +7,16 @@
 #
   Feature: Ladder
 
-  @stage_env
-  Scenario: Verify that a list of all ladders for all gameservers is received using the appropriate API
+  @dev_env
+  Scenario: Verify the list of all ladders for all gameservers
     When I request a list of ladders for all gameservers
     Then I should see a list of ladders
 
-  @bug_ESP-798
+  @all_env
+  Scenario: Verify that GET /ladder API returns correct status
+    When I request a list of ladders for all gameservers
+
+  @bug @ESP-798
   Scenario: Verify that a list of all ladders for all gameservers is NOT received if wrong authorization token is provided
     When I request a list of ladders for all gameservers with invalid authorization token
     Then I should NOT see a list of ladders
@@ -23,17 +27,17 @@
     And I request the latest page of the list of ladders for all gameservers
     Then I should see the ladder on the list of ladders
 
-  @bug_ESP-798
+  @bug @ESP-798
   Scenario: Verify that a new ladder can't be created without choosing a gameserver
     When I try to create a new ladder for "gameserver1" gameserver without choosing a gameserver
     Then I should see the ladder is not created
 
-  @bug_ESP-798
+  @bug @ESP-798
   Scenario: Verify that a new ladder can't be created without entering a ladder name
     When I try to create a new ladder for "gameserver1" gameserver without entering a name for the ladder
     Then I should see the ladder is not created
 
-  @bug_ESP-798
+  @bug @ESP-798
   Scenario: Verify that a new ladder can't be created without entering a start date
     When I try to create a new ladder for "gameserver1" gameserver without entering a start date
     Then I should see the ladder is not created

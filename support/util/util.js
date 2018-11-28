@@ -11,11 +11,39 @@ exports.sleep = function (milliseconds) {
 
 exports.emailTimestamp = function (email) {
   // in: daca@mail.com
-  // out: daca+180330163020@mail.com
-  return 'qa.at_user_100@gamecredits.com'
+  // out: daca+timestamp@mail.com
+  const parts = email.split('@')
+  return `${parts[0]}+${global.createTimestamp()}@${parts[1]}`
+}
+
+exports.makeMatchId = function (idLength = 7) {
+  let text = ''
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+  for (let i = 0; i < idLength; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  }
+  return text
+}
+
+exports.generateName = function (nameLength = 10) {
+  let text = ''
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+  for (let i = 0; i < nameLength; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  }
+  return text
+}
+
+/*
+Create timestamp as number of milliseconds since 1970/01/01
+*/
+exports.createTimestamp = function () {
+  var d = new Date()
+  return d
 }
 
 exports.createUniqueGameserverName = function () {
-  const d = new Date()
-  return 'qags' + d.getTime()
+  return 'qags' + global.createTimestamp()
 }

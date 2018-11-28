@@ -49,6 +49,18 @@ class TestData {
   getToken () {
     return TestData.data.token
   }
+
+  static getServerInfo (serverInfo) {
+    return TestData.data.gameservers[serverInfo]
+  }
+
+  static getLadderInfo (ladderInfo) {
+    return TestData.data.ladders[ladderInfo]
+  }
+
+  static getAuthToken () {
+    return TestData.data.token
+  }
 }
 
 module.exports = TestData

@@ -14,7 +14,7 @@ Feature: Gameserver
   # system (ie. create database, test data etc). But how do we do that in stage
   # or prod. Could we, for example, get the list via UI and via API and compare
   # them? Does that makes sense?
-  @semi_auto
+  @dev_env
   Scenario: List of all gameservers
     When I request a list of all gameservers
     Then I should get the list of gameservers

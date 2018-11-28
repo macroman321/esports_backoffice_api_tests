@@ -27,4 +27,31 @@ gameservers:
     package_name: null
     provider_id: 3
     keywords:
-      - pogibijaa
+    - pogibijaa
+  gameserver2:
+    token: 216c07d4-6092-472f-897c-b0a9c47f21f1
+    id:
+
+ladders:
+  ladder1:
+    id: 248
+    name: test_ladder_1
+
+  ladder2:
+    id: 1
+    name: test123
+
+  ladder3:
+    id: 2
+    name: g2
+
+  ladder4:
+    id: 5
+    name: g3
+
+providers:
+  provider1:
+    id: 3
+    name: QABugTestingProvider
+    gameservers:
+      - id: 7

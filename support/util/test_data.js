@@ -50,7 +50,15 @@ class TestData {
     return TestData.data.token
   }
 
-  static getToken () {
+  static getServerInfo (serverInfo) {
+    return TestData.data.gameservers[serverInfo]
+  }
+
+  static getLadderInfo (ladderInfo) {
+    return TestData.data.ladders[ladderInfo]
+  }
+
+  static getAuthToken () {
     return TestData.data.token
   }
 }

@@ -9,6 +9,8 @@
 # $ ./run.sh prod
 # $ ./run.sh stage features/<name>.feature
 ./node_modules/.bin/cucumber-js \
+    -r ./steps -r ./support \
+    --tags 'not @wip and not @manual and not @bug' \
     --world-parameters "{\"environment\": \"$1\"}" \
     -p $1 \
     ${@:2}

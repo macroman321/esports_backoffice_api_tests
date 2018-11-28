@@ -1,5 +1,5 @@
 const assert = require('assert')
-const {When, Then, setDefaultTimeout} = require('cucumber')
+const { When, Then, setDefaultTimeout } = require('cucumber')
 const gameserver = require('../support/api_requests/gameserver')
 const util = require('../support/util/util')
 const {StatusCode} = require('../support/util/http_codes')

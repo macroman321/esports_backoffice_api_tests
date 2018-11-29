@@ -48,10 +48,3 @@ ladders:
   ladder4:
     id: 5
     name: g3
-
-providers:
-  provider1:
-    id: 3
-    name: QABugTestingProvider
-    gameservers:
-      - id: 7

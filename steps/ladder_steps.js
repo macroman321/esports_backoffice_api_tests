@@ -107,14 +107,12 @@ When('I create new ladder for {string} gameserver', async function (serverInfo) 
       `${testData.data.url}/ladder`,
       {
         'name': this.ladderName,
-        'startDate': util.createTimestamp(),
-        'endDate': util.createTimestamp(),
+        'startDate': util.createTimestampStart(),
+        'endDate': util.createTimestampEnd(),
         'gameserver': {
           'id': 7,
           'gameSlug': 'f0641a58-8e82-487f-b7ca-375d6132746d'
         },
-        'gameSlug': 'string',
-        'paymentConfirmed': false,
         'prizes': [
           {
             'id': 9,
@@ -161,8 +159,8 @@ When('I try to create a new ladder for {string} gameserver without choosing a ga
       `${testData.data.url}/ladder`,
       {
         'name': this.ladderName,
-        'startDate': util.createTimestamp(),
-        'endDate': util.createTimestamp(),
+        'startDate': util.createTimestampStart(),
+        'endDate': util.createTimestampEnd(),
         'gameserver': {
           'id': '',
           'gameSlug': ''
@@ -214,8 +212,8 @@ When('I try to create a new ladder for {string} gameserver without entering a na
       `${testData.data.url}/ladder`,
       {
         'name': 'bugtest1',
-        'startDate': util.createTimestamp(),
-        'endDate': util.createTimestamp(),
+        'startDate': util.createTimestampStart(),
+        'endDate': util.createTimestampEnd(),
         'gameserver': {
           'id': 7,
           'gameSlug': 'nekirandomslug1'
@@ -268,8 +266,8 @@ When('I try to create a new ladder for {string} gameserver without entering a st
       `${testData.data.url}/ladder`,
       {
         'name': this.ladderName,
-        'startDate': util.createTimestamp(),
-        'endDate': util.createTimestamp(),
+        'startDate': util.createTimestampStart(),
+        'endDate': util.createTimestampEnd(),
         'gameserver': {
           'id': 7,
           'gameSlug': 'f0641a58-8e82-487f-b7ca-375d6132746d'

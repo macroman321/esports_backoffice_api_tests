@@ -103,12 +103,14 @@ When('I create new ladder for {string} gameserver', async function (serverInfo) 
   this.ladderName = util.generateName()
 
   try {
+    const timestampStart = util.createTimestamp()
+    const timestampEnd = util.addSecondsToTimestamp(timestampStart, 2)
     this.response = await request.post(
       `${testData.data.url}/ladder`,
       {
         'name': this.ladderName,
-        'startDate': util.createTimestampStart(),
-        'endDate': util.createTimestampEnd(),
+        'startDate': timestampStart,
+        'endDate': timestampEnd,
         'gameserver': {
           'id': 7,
           'gameSlug': 'f0641a58-8e82-487f-b7ca-375d6132746d'
@@ -155,12 +157,14 @@ When('I try to create a new ladder for {string} gameserver without choosing a ga
   this.ladderName = util.generateName()
 
   try {
+    const timestampStart = util.createTimestamp()
+    const timestampEnd = util.addSecondsToTimestamp(timestampStart, 2)
     this.response = await request.post(
       `${testData.data.url}/ladder`,
       {
         'name': this.ladderName,
-        'startDate': util.createTimestampStart(),
-        'endDate': util.createTimestampEnd(),
+        'startDate': timestampStart,
+        'endDate': timestampEnd,
         'gameserver': {
           'id': '',
           'gameSlug': ''
@@ -208,12 +212,14 @@ When('I try to create a new ladder for {string} gameserver without entering a na
   this.authToken = testData.getAuthToken()
   console.log(`${util.createTimestamp()}`)
   try {
+    const timestampStart = util.createTimestamp()
+    const timestampEnd = util.addSecondsToTimestamp(timestampStart, 2)
     this.response = await request.post(
       `${testData.data.url}/ladder`,
       {
         'name': 'bugtest1',
-        'startDate': util.createTimestampStart(),
-        'endDate': util.createTimestampEnd(),
+        'startDate': timestampStart,
+        'endDate': timestampEnd,
         'gameserver': {
           'id': 7,
           'gameSlug': 'nekirandomslug1'
@@ -262,12 +268,14 @@ When('I try to create a new ladder for {string} gameserver without entering a st
   this.ladderName = util.generateName()
 
   try {
+    const timestampStart = util.createTimestamp()
+    const timestampEnd = util.addSecondsToTimestamp(timestampStart, 2)
     this.response = await request.post(
       `${testData.data.url}/ladder`,
       {
         'name': this.ladderName,
-        'startDate': util.createTimestampStart(),
-        'endDate': util.createTimestampEnd(),
+        'startDate': timestampStart,
+        'endDate': timestampEnd,
         'gameserver': {
           'id': 7,
           'gameSlug': 'f0641a58-8e82-487f-b7ca-375d6132746d'

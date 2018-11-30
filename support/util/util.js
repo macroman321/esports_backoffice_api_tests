@@ -60,7 +60,7 @@ exports.timestamp = function () {
 
 /**
  * Create unique name by adding a timestamp to the given prefix
- * 
+ *
  * @returns: prefix + timestamp
  */
 exports.createUniqueName = function (prefix) {

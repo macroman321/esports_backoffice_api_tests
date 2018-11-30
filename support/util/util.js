@@ -36,12 +36,12 @@ exports.generateName = function (nameLength = 10) {
   return text
 }
 
-/*
-Create timestamp as number of milliseconds since 1970/01/01
-*/
+/**
+ * Create timestamp using format YYYY-MM-DDTHH:MM:SSZ
+ */
 exports.createTimestamp = function () {
-  const time = new Date()
-  return time
+  const ts = new Date()
+  return ts
 }
 
 exports.addSecondsToTimestamp = function (timestamp, seconds) {
@@ -50,11 +50,28 @@ exports.addSecondsToTimestamp = function (timestamp, seconds) {
   return time
 }
 
+/**
+ * Create timestamp as number of milliseconds since 1970/01/01
+ */
+exports.timestamp = function () {
+  const ts = new Date()
+  return ts.getTime()
+}
+
+/**
+ * Create unique name by adding a timestamp to the given prefix
+ * 
+ * @returns: prefix + timestamp
+ */
+exports.createUniqueName = function (prefix) {
+  const name = prefix + exports.timestamp()
+  return name
+}
+
 exports.createUniqueGameserverName = function () {
-  return 'qags' + global.createTimestamp()
+  return exports.createUniqueName('qags')
 }
 
 exports.createUniqueProviderName = function () {
-  const d = new Date()
-  return 'qapro' + d.getTime()
+  return exports.createUniqueName('qapro')
 }

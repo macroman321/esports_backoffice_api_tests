@@ -40,8 +40,14 @@ exports.generateName = function (nameLength = 10) {
 Create timestamp as number of milliseconds since 1970/01/01
 */
 exports.createTimestamp = function () {
-  var d = new Date()
-  return d
+  const time = new Date()
+  return time
+}
+
+exports.addSecondsToTimestamp = function (timestamp, seconds) {
+  let time = new Date()
+  time.setSeconds(timestamp.getSeconds() + seconds)
+  return time
 }
 
 exports.createUniqueGameserverName = function () {

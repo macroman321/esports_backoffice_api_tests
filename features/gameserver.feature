@@ -8,7 +8,7 @@
 
 Feature: Gameserver
 
-  # question: How do we automate this test cases given that total number of 
+  # question: How do we automate this test case given that total number of
   # gameservers constantly changes. 
   # We can do this in 'dev' environment where we can have full control under the
   # system (ie. create database, test data etc). But how do we do that in stage

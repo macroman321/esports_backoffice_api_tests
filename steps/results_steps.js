@@ -32,36 +32,37 @@ defineSupportCode(function ({Given, Then, When}) {
       200,
       `Incorrect status code - ${this.response.status}`
     )
+    console.log('-------------------------', this.response.data)
   })
 
-  When('I request a list of results for {string} match on {string} gameserver without the appropriate gameslug', async function (match, serverInfo) {
-    this.results = TestData.getResultsInfo()
-    this.serverInfo = TestData.getServerInfo(serverInfo)
-    this.getAuth = TestData.getLadderAuth()
-    this.response = undefined
-    this.error = undefined
-
-    try {
-      this.response = await request.get(
-        `${TestData.data.url}/results/matches?page=${this.results.page}&size=${this.results.size}`,
-        {
-          headers: {
-            'Accept': '*/*',
-            'Authorization': `Bearer ${this.getAuth.auth}`
-
-          }
-        }
-      )
-    } catch (err) {
-      console.log(err)
-      throw err
-    }
-    assert.equal(
-      this.response.status,
-      400,
-      `Incorrect status code - ${this.response.status}`
-    )
-  })
+  // When('I request a list of results for {string} match on {string} gameserver without the appropriate gameslug', async function (match, serverInfo) {
+  //   this.results = TestData.getResultsInfo()
+  //   this.serverInfo = TestData.getServerInfo(serverInfo)
+  //   this.getAuth = TestData.getLadderAuth()
+  //   this.response = undefined
+  //   this.error = undefined
+  //
+  //   try {
+  //     this.response = await request.get(
+  //       `${TestData.data.url}/results/matches?page=${this.results.page}&size=${this.results.size}`,
+  //       {
+  //         headers: {
+  //           'Accept': '*/*',
+  //           'Authorization': `Bearer ${this.getAuth.auth}`
+  //
+  //         }
+  //       }
+  //     )
+  //   } catch (err) {
+  //     console.log(err)
+  //     throw err
+  //   }
+  //   assert.equal(
+  //     this.response.status,
+  //     400,
+  //     `Incorrect status code - ${this.response.status}`
+  //   )
+  // })
 
   Then('I should see appropriate results for the query', async function () {
     console.log(`The total number of ladders - ${this.response.data.totalElements}`)
@@ -74,6 +75,7 @@ defineSupportCode(function ({Given, Then, When}) {
         return match.matchId
       }
     })
+    console.log('---------------------------------------', compareMatch)
     console.log(`${compareMatch[0].matchId}, ${compareMatch[1].matchId} and ${compareMatch[2].matchId} are the matches we are searching for`)
     assert(
       this.response.data.totalElements > 3,

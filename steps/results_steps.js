@@ -8,7 +8,7 @@ defineSupportCode(function ({Given, Then, When}) {
   When('I request a list of results for {string} match on {string} gameserver', async function (match, serverInfo) {
     this.results = TestData.getResultsInfo()
     this.serverInfo = TestData.getServerInfo(serverInfo)
-    this.getAuth = TestData.getLadderAuth()
+    this.getAuth = TestData.getAuthToken()
     this.response = undefined
     this.error = undefined
 
@@ -18,7 +18,7 @@ defineSupportCode(function ({Given, Then, When}) {
         {
           headers: {
             'Accept': '*/*',
-            'Authorization': `Bearer ${this.getAuth.auth}`
+            'Authorization': `Bearer ${this.getAuth}`
 
           }
         }

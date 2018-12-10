@@ -68,6 +68,11 @@ class TestData {
 
   static getResultsInfo () {
     return TestData.data.results_info
+    // return TestData.data.ladders[ladderInfo]
+  }
+
+  static getAuthToken () {
+    return TestData.data.token
   }
 }
 

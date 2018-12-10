@@ -9,7 +9,7 @@ exports.createGameserver = async function (
 ) {
   let response
 
-  body = {}
+  const body = {}
   if (name !== undefined) { body['name'] = name }
   if (provider !== undefined) { body['provider'] = {'id': provider} }
   if (keywords !== undefined) { body['keywords'] = keywords }
@@ -42,15 +42,17 @@ exports.updateGameserver = async function (
   id,
   name,
   active,
+  packageName,
   provider,
   keywords,
   expectedStatus
 ) {
   let response
 
-  body = {}
+  const body = {}
   if (name !== undefined) { body['name'] = name }
   if (active !== undefined) { body['active'] = active }
+  if (packageName !== undefined) { body['package_name'] = packageName }
   if (provider !== undefined) { body['provider'] = {'id': provider} }
   if (keywords !== undefined) { body['keywords'] = keywords }
 

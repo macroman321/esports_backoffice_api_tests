@@ -34,7 +34,7 @@ Feature: Gameserver
   @stage_env
   Scenario: Name is required when creating gameserver
     When I create a new gameserver without providing name
-    Then I should see that gameserver creation fails with reason 'game server name can not be null'
+    Then I should see that gameserver creation fails with reason 'game server name can not be empty'
 
   @stage_env
   Scenario: Provider is required when creating gameserver

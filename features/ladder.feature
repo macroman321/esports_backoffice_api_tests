@@ -52,6 +52,11 @@
     When I try to create a new ladder for "gameserver1" gameserver without entering a start date
     Then I should see the ladder is not created
 
+  @stage_env @wip
+  Scenario: Verify that a new ladder can't be created without entering maximum participants info
+    When I try to create a new ladder for "gameserver1" gameserver without entering maximum participants info
+    Then I should see the ladder is not created with message 'maximum participants can not be null'
+
   @stage_env
   Scenario: Verify that all info is returned on a single ladder using the appropriate API
     When I request information for "ladder1" ladder

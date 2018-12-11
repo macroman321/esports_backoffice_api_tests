@@ -35,9 +35,9 @@ results_info:
   size: 10
 
 known_matches:
-  match1_id: c3748f73a34c1fa974d8705da65d7396
-  match2_id: ae66aab37093a90941f37f4eb2e41182
-  match3_id: 7f3a034ebc85bb78c152e3f979c35fdf
+  - c3748f73a34c1fa974d8705da65d7396
+  - bc4fc01cfd18b691cfd3cf767020619b
+  - 600a1b24da264792ac3e28219bd34fdf
 
 ladders:
   ladder1:

@@ -55,7 +55,7 @@ class TestData {
   }
 
   static getLadderInfo (ladderInfo) {
-    return TestData.data.ladder[ladderInfo]
+    return TestData.data.ladders[ladderInfo]
   }
 
   static getLadderAuth () {

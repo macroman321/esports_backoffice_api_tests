@@ -128,7 +128,8 @@ When('I create new ladder for {string} gameserver', async function (serverInfo) 
             'toPosition': 10,
             'prize': 50
           }
-        ]
+        ],
+        'maximumParticipants': 5
       },
       {
         headers: {
@@ -139,7 +140,7 @@ When('I create new ladder for {string} gameserver', async function (serverInfo) 
       }
     )
   } catch (err) {
-    global.logger.error(err)
+    global.logger.error(err.response.data)
     throw err
   }
   assert.equal(
@@ -210,7 +211,6 @@ When('I try to create a new ladder for {string} gameserver without entering a na
   this.response = undefined
   this.err = undefined
   this.authToken = testData.getAuthToken()
-  console.log(`${util.createTimestamp()}`)
   try {
     const timestampStart = util.createTimestamp()
     const timestampEnd = util.addSecondsToTimestamp(timestampStart, 2)
@@ -321,15 +321,15 @@ Then('I should see the ladder is not created', async function () {
   global.logger.info(this.response.status)
 })
 
-When('I request information for {string} ladder', async function (ladderInfo) {
-  this.ladderID = testData.getLadderInfo(ladderInfo)
+When('I request information for {string} ladder', async function (ladderId) {
+  this.ladderInfo = testData.getLadderInfo(ladderId)
   this.authToken = testData.getAuthToken()
   this.response = undefined
   this.err = undefined
 
   try {
     this.response = await request.get(
-      `${testData.data.url}/ladder/${this.ladderID.id}`,
+      `${testData.data.url}/ladder/${this.ladderInfo.id}`,
       {
         headers: {
           'Accept': '*/*',
@@ -338,12 +338,13 @@ When('I request information for {string} ladder', async function (ladderInfo) {
       }
     )
   } catch (err) {
-    global.logger.error(err)
+    global.logger.error(err.response.data)
     throw err
   }
+
   assert.equal(
     this.response.status,
-    200,
+    StatusCode.OK,
     `Incorrect status code - ${this.response.status}`
   )
 })
@@ -356,7 +357,6 @@ Then('I should see the ladder on the list of ladders', async function () {
       return ladder.name
     }
   })
-  console.log(`${this.ladderName} - ladder we are searching for`)
   assert.equal(
     this.ladderName,
     found[0].name,
@@ -366,19 +366,16 @@ Then('I should see the ladder on the list of ladders', async function () {
 Then('I should get the ID from the created ladder', async function () {
   global.logger.info('Last page of ladders')
   this.idFind = this.response.data.content.filter((ladder) => {
-    console.log(`${ladder.name} - ${ladder.id}`)
     if (ladder.name === this.ladderName) {
       return ladder.id
     }
   })
-  console.log(`ID of the newly created ladder -> ${this.idFind[0].id}`)
 })
 
 Then('I should see information for that ladder', async function () {
-  console.log(this.response.data.name)
   assert.equal(
     this.response.data.name,
-    this.ladderID.name,
+    this.ladderInfo.name,
     `Wrong ID for searched ladder - ${this.response.data.name}`)
 })
 
@@ -410,15 +407,12 @@ When('I delete a specific ladder on {string} gameserver', async function (server
 })
 
 Then('I should see the ladder is no longer present in the list of ladders', async function () {
-  console.log('Last page of ladders')
   let missing = true
   this.response.data.content.forEach((ladder) => {
-    console.log(`${ladder.name}`)
     if (ladder.name === this.ladderName) {
       missing = false
     }
   })
-  console.log(`${this.ladderName} - ladder we are searching for`)
   assert(
     missing,
     `Ladder is present on the list of ladders - ${this.ladderName}`)

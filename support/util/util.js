@@ -75,3 +75,7 @@ exports.createUniqueGameserverName = function () {
 exports.createUniqueProviderName = function () {
   return exports.createUniqueName('qapro')
 }
+
+exports.isArraySubset = function (subarr, arr) {
+  return subarr.every(val => arr.includes(val))
+}

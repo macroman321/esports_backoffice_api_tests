@@ -58,6 +58,19 @@ class TestData {
     return TestData.data.ladders[ladderInfo]
   }
 
+  static getLadderAuth () {
+    return TestData.data.ladder
+  }
+
+  static getKnownLadderID (ladderID) {
+    return TestData.data.known_ladders[ladderID]
+  }
+
+  static getResultsInfo () {
+    return TestData.data.results_info
+    // return TestData.data.ladders[ladderInfo]
+  }
+
   static getAuthToken () {
     return TestData.data.token
   }

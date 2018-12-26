@@ -16,9 +16,6 @@ providers:
     id: 3
     name: QABugTestingProvider
     gameservers:
-      - id: 21
-      - id: 9
-      - id: 7
 
 gameservers:
   gameserver1:
@@ -31,6 +28,16 @@ gameservers:
   gameserver2:
     token: 216c07d4-6092-472f-897c-b0a9c47f21f1
     id:
+
+results_info:
+  game_slug: colorfrenzy
+  page: 0
+  size: 10
+
+known_matches:
+  - c3748f73a34c1fa974d8705da65d7396
+  - bc4fc01cfd18b691cfd3cf767020619b
+  - 600a1b24da264792ac3e28219bd34fdf
 
 ladders:
   ladder1:

@@ -86,10 +86,17 @@ Then('I should see that the previously created gameserver exists', async functio
 })
 
 Then('I should see that gameserver creation fails with reason {string}', async function (errorMessage) {
-  assert.equal(
-    this.response.data.sub_errors[0].message,
-    errorMessage,
-    `Incorrect error message - ${this.response.data.error_code}`)
+  try {
+    assert.equal(
+      this.response.data.sub_errors[0].message,
+      errorMessage,
+      `Incorrect error message - ${this.response.data.sub_errors[0].message}`)
+  } catch (err) {
+    assert.equal(
+      this.response.data.sub_errors[1].message,
+      errorMessage,
+      `Incorrect error message - ${this.response.data.sub_errors[1].message}`)
+  }
 })
 
 When('I update a gameserver status', async function () {
@@ -107,18 +114,6 @@ When('I update a gameserver status', async function () {
     getResponse.data.keywords,
     StatusCode.OK
   )
-
-  if (this.currentStatus === true) {
-    this.response = await gameserver.updateGameserver(
-      this.gameserver.id,
-      getResponse.data.name,
-      true,
-      getResponse.data.package_name,
-      getResponse.data.provider.id,
-      getResponse.data.keywords,
-      StatusCode.OK
-    )
-  }
 })
 
 Then('I should see that the status of the gameserver has changed', async function () {
@@ -126,6 +121,18 @@ Then('I should see that the status of the gameserver has changed', async functio
   const newStatus = newGameserverResponse.data.active
 
   assert.equal(newStatus, !this.currentStatus, 'Gameserver status update failed!')
+
+  if (this.currentStatus === true) {
+    this.response = await gameserver.updateGameserver(
+      this.gameserver.id,
+      newGameserverResponse.data.name,
+      true,
+      newGameserverResponse.data.package_name,
+      newGameserverResponse.data.provider.id,
+      newGameserverResponse.data.keywords,
+      StatusCode.OK
+    )
+  }
 })
 
 When('I update a gameserver name', async function () {

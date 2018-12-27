@@ -20,3 +20,5 @@ RUN npm install \
 
 EXPOSE 4444
 EXPOSE 80
+
+CMD /run.sh stage
